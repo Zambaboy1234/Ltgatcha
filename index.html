@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>등불사무소</title>
+
 <style>
 :root{
   --bg:#090907;
@@ -22,339 +23,4128 @@
   --lens:#8fc9d8;
   --green:#8fa47d;
   --shadow:rgba(0,0,0,.55);
+
   --safe-top:env(safe-area-inset-top,0px);
   --safe-right:env(safe-area-inset-right,0px);
   --safe-bottom:env(safe-area-inset-bottom,0px);
   --safe-left:env(safe-area-inset-left,0px);
 }
+
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--paper);font-family:"SFMono-Regular","Pretendard","Noto Sans KR",monospace;overflow:hidden}
+
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  background:var(--bg);
+  color:var(--paper);
+  font-family:"SFMono-Regular","Pretendard","Noto Sans KR",monospace;
+  overflow:hidden
+}
+
 button,input,select{font:inherit}
 button{color:inherit}
-body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;background:
-  repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px),
-  radial-gradient(circle at center,transparent 50%,rgba(0,0,0,.35) 100%);mix-blend-mode:screen;opacity:.55}
-body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:998;box-shadow:inset 0 0 80px rgba(0,0,0,.7)}
-.app{height:100%;display:grid;grid-template-rows:52px 1fr;padding:var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left)}
-.topbar{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;border-bottom:1px solid var(--line);background:linear-gradient(#11110e,#0c0c0a);padding:0 14px;gap:12px;box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:5}
-.brand{min-width:0;display:flex;align-items:center;gap:12px}
-.brandMark{width:30px;height:30px;border:1px solid var(--amber);border-radius:50%;display:grid;place-items:center;position:relative;color:var(--amber);box-shadow:inset 0 0 0 4px #111,0 0 14px rgba(214,155,67,.12)}
-.brandMark::before,.brandMark::after{content:"";position:absolute;background:var(--amber);opacity:.6}
-.brandMark::before{width:1px;height:36px}.brandMark::after{height:1px;width:36px}
-.brandTitle{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;letter-spacing:.08em}
-.brandSub{font-size:9px;color:var(--muted);letter-spacing:.15em;margin-top:2px}
-.resources{display:flex;gap:7px;align-items:center}
-.meter{border:1px solid var(--line);background:#10100d;border-radius:2px;padding:5px 8px;min-width:88px}
-.meterLabel{font-size:8px;color:var(--muted);letter-spacing:.14em}.meterValue{font-size:12px;color:var(--amber2);margin-top:1px}
-.shell{min-height:0;display:grid;grid-template-columns:76px 1fr;background:linear-gradient(135deg,#0c0c09,#11100d)}
-.nav{border-right:1px solid var(--line);background:#0d0d0a;padding:8px 6px;display:flex;flex-direction:column;gap:6px;overflow:auto}
-.navBtn{appearance:none;border:1px solid transparent;background:transparent;padding:8px 3px;border-radius:3px;cursor:pointer;text-align:center;color:var(--muted);min-height:54px}
-.navBtn:hover{background:#161510;color:var(--paper);border-color:#2f2d24}.navBtn.active{background:#1d1a12;color:var(--amber2);border-color:#57482f;box-shadow:inset 3px 0 0 var(--amber)}
-.navIcon{display:block;font-size:19px;line-height:1;margin-bottom:5px}.navText{font-size:9px;line-height:1.2;letter-spacing:.04em}
-.main{min-width:0;min-height:0;position:relative;overflow:hidden}
-.page{position:absolute;inset:0;padding:10px;overflow:auto;opacity:0;transform:translateX(12px);pointer-events:none;transition:.18s ease}
-.page.active{opacity:1;transform:none;pointer-events:auto}
-.panel{border:1px solid var(--line);background:linear-gradient(180deg,rgba(27,26,21,.96),rgba(16,16,13,.96));box-shadow:0 12px 30px var(--shadow);border-radius:4px}
-.panelHeader{height:34px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-bottom:1px solid var(--line);background:linear-gradient(#1a1915,#13130f)}
-.panelTitle{font-size:10px;letter-spacing:.15em;color:#b8b09a}.panelMeta{font-size:8px;color:#706d61}
-/* GACHA */
-.gachaGrid{height:100%;display:grid;grid-template-columns:minmax(150px,24%) minmax(300px,1fr) minmax(220px,31%);gap:8px;min-height:0}
-.bannerRack,.cameraDeck,.controlDeck{min-height:0;overflow:hidden}
-.bannerList{padding:8px;height:calc(100% - 34px);overflow:auto;display:flex;flex-direction:column;gap:7px}
-.bannerCard{appearance:none;width:100%;color:inherit;text-align:left;font:inherit;position:relative;border:1px solid #343128;background:#12120e;padding:9px 8px 9px 13px;cursor:pointer;min-height:72px;overflow:hidden}
-.bannerCard::before{content:"";position:absolute;left:4px;top:7px;bottom:7px;width:3px;background:repeating-linear-gradient(to bottom,#625d4d 0 5px,transparent 5px 10px)}
-.bannerCard:hover{border-color:#615a46}.bannerCard.active{border-color:var(--amber);background:linear-gradient(100deg,#2a2215,#171611);box-shadow:inset 0 0 22px rgba(214,155,67,.07)}
-.bannerType{font-size:8px;color:var(--amber);letter-spacing:.11em;margin-bottom:4px}.bannerName{font-size:11px;line-height:1.3}.bannerMini{font-size:8px;color:var(--muted);margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cameraDeck{display:grid;grid-template-rows:1fr auto;background:#0b0b09}
-.viewfinder{position:relative;min-height:0;display:grid;place-items:center;overflow:hidden;background:
-  radial-gradient(circle at 50% 45%,rgba(90,84,62,.18),transparent 28%),
-  linear-gradient(160deg,#12110d,#090907 65%)}
-.viewfinder::before{content:"";position:absolute;inset:11px;border:1px solid rgba(214,155,67,.35);pointer-events:none}
-.viewfinder::after{content:"";position:absolute;inset:24px;border:1px solid rgba(215,208,185,.08);pointer-events:none}
-.corner{position:absolute;width:26px;height:26px;border-color:var(--paper);opacity:.35}.c1{left:20px;top:20px;border-left:1px solid;border-top:1px solid}.c2{right:20px;top:20px;border-right:1px solid;border-top:1px solid}.c3{left:20px;bottom:20px;border-left:1px solid;border-bottom:1px solid}.c4{right:20px;bottom:20px;border-right:1px solid;border-bottom:1px solid}
-.focusCross{position:absolute;left:50%;top:50%;width:54px;height:34px;transform:translate(-50%,-50%);border:1px solid rgba(214,155,67,.3)}
-.focusCross::before,.focusCross::after{content:"";position:absolute;background:rgba(214,155,67,.35)}.focusCross::before{width:18px;height:1px;left:17px;top:16px}.focusCross::after{width:1px;height:18px;left:26px;top:8px}
-.hero{width:min(84%,640px);text-align:center;padding:22px;position:relative;z-index:2}
-.heroOverline{font-size:9px;color:var(--amber);letter-spacing:.18em}.heroTitle{font-family:Georgia,"Noto Serif KR",serif;font-size:clamp(18px,3.2vw,34px);line-height:1.15;margin:9px 0 8px;color:#e8e0c9;text-shadow:0 2px 0 #000}.heroDesc{font-size:10px;line-height:1.6;color:var(--muted);max-width:560px;margin:0 auto}.pickupPlate{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin-top:16px}.pickupChip{border:1px solid #4b4739;background:#12110e;padding:6px 8px;font-size:9px}.pickupChip.lens{border-color:#36545e;color:var(--lens)}
-.exposureBar{position:absolute;left:20px;right:20px;bottom:10px;display:flex;justify-content:space-between;color:#777266;font-size:8px;letter-spacing:.08em}.exposureBar strong{color:var(--amber2);font-weight:500}
-.shutterStrip{border-top:1px solid var(--line);background:#11110e;padding:7px 10px;display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:7px}.shutterHint{font-size:8px;color:#777267}.pullBtn{height:34px;padding:0 14px;border:1px solid #665535;background:#241d12;color:#e3c895;cursor:pointer}.pullBtn:hover{background:#302417}.pullBtn.primary{background:#5b3619;border-color:#9d6832;color:#ffe1a5;min-width:92px}.pullBtn:disabled{opacity:.45;cursor:not-allowed}
-.controlDeck{display:grid;grid-template-rows:auto 1fr;min-height:0}.statusRail{padding:7px 8px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.statusBox{background:#11110e;border:1px solid #302e26;padding:5px 6px}.statusK{font-size:7px;color:#6f6b5e}.statusV{font-size:10px;color:#c8c0aa;margin-top:2px}
-.resultPanel{min-height:0;display:grid;grid-template-rows:30px 1fr}.resultHeader{padding:0 8px;display:flex;align-items:center;justify-content:space-between;font-size:8px;color:#777267;border-bottom:1px solid #2e2c24}.resultList{padding:6px;overflow:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start;gap:5px;background:
-  linear-gradient(90deg,transparent 0 7px,#28261f 7px 10px,transparent 10px calc(100% - 10px),#28261f calc(100% - 10px) calc(100% - 7px),transparent calc(100% - 7px));}
-.resultEmpty{grid-column:1/-1;min-height:150px;display:grid;place-items:center;color:#555146;font-size:9px;text-align:center;line-height:1.7}
-.resultCard{position:relative;min-height:64px;background:#0e0e0c;border:1px solid #343127;padding:8px 7px 7px 10px;overflow:hidden}.resultCard::before{content:"";position:absolute;left:3px;top:4px;bottom:4px;width:2px;background:repeating-linear-gradient(to bottom,#4c493e 0 4px,transparent 4px 8px)}
-.resultGrade{font-size:7px;letter-spacing:.05em;margin-bottom:5px}.resultName{font-size:10px;line-height:1.3}.resultMeta{font-size:7px;color:#777267;margin-top:5px}.resultFlags{position:absolute;right:5px;top:5px;display:flex;gap:3px}.flag{font-size:6px;padding:2px 3px;border:1px solid #574c32;color:#e7b969;background:#1f1910}.flag.new{color:#ffe27c;border-color:#8b742d}.lensResult{border-color:#2d4850;background:#0d1416}.infra{color:var(--infra)}.ultra{color:var(--ultra)}.lumen{color:var(--lumen)}.lens{color:var(--lens)}
-/* OTHER PAGES */
-.pageGrid{height:100%;display:grid;grid-template-rows:auto 1fr;gap:8px;min-height:0}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 8px}.toolbarGroup{display:flex;gap:5px;flex-wrap:wrap}.tinyBtn{height:28px;border:1px solid #38352b;background:#14130f;color:#918b78;padding:0 9px;cursor:pointer}.tinyBtn.active,.tinyBtn:hover{border-color:#776443;color:#e1bd7b;background:#211b12}.contentScroll{min-height:0;overflow:auto;padding:9px}
-.collectionList{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;align-content:start}.charCard{border:1px solid #343127;background:#11110e;padding:8px;min-height:72px;position:relative}.charCard.dimmed{opacity:.28;filter:grayscale(.7)}.charName{font-size:10px}.charGroup{font-size:7px;color:#6c685d;margin-top:4px}.lensChildren{margin-top:7px;border-top:1px solid #28261f;padding-top:5px}.lensChild{font-size:8px;color:var(--lens);padding:2px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.groupHeader{grid-column:1/-1;font-size:9px;color:#b6aa8d;border-bottom:1px solid #3a372c;padding:8px 2px 4px;letter-spacing:.08em}
-.lensGroups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;align-content:start}.lensGroup{border:1px solid #33434a;background:#0d1214}.lensGroupHead{padding:7px 8px;border-bottom:1px solid #293b42;display:flex;justify-content:space-between}.lensGroupName{font-size:10px}.lensGroupCount{font-size:8px;color:#718d96}.lensSlots{padding:6px;display:grid;gap:5px}.lensSlot{border:1px solid #2f4046;background:#10181b;padding:7px;font-size:8px;color:var(--lens);min-height:44px}.lensSlot.missing{opacity:.25}.slotParent{font-size:7px;color:#5e747b;margin-top:4px}
-.exchangeColumns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.exchangeSection{border:1px solid var(--line);background:#10100d}.exchangeHead{height:31px;padding:0 8px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);font-size:9px;color:#b7ae99}.exchangeList{padding:6px;display:grid;gap:5px;max-height:calc(100vh - 145px);overflow:auto}.exchangeRow{border:1px solid #302e26;background:#13120f;padding:6px 7px;display:grid;grid-template-columns:1fr auto;gap:7px;align-items:center}.exchangeName{font-size:9px}.exchangeSub{font-size:7px;color:#6f6b60;margin-top:3px}.exchangeBtn{height:28px;border:1px solid #654f2e;background:#21190f;color:#e0b76f;padding:0 8px;cursor:pointer}.exchangeBtn:disabled{opacity:.35;cursor:not-allowed}
-.logList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;align-content:start}.logCard{border:1px solid #343127;background:#11110e;padding:7px}.logMeta{font-size:7px;color:#777267;border-bottom:1px solid #29271f;padding-bottom:5px;margin-bottom:5px}.logLine{font-size:8px;padding:2px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.resetBtn{border-color:#5f3028!important;color:#d67a68!important}.note{font-size:8px;color:#747064;line-height:1.5}
-.flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:1000}.flash.fire{animation:flash .26s ease-out}@keyframes flash{0%{opacity:0}20%{opacity:.88}100%{opacity:0}}
-@keyframes lensGlow{0%{box-shadow:0 0 0 rgba(143,201,216,0)}50%{box-shadow:0 0 18px rgba(143,201,216,.45)}100%{box-shadow:0 0 0 rgba(143,201,216,0)}}
-@keyframes rareGlow{0%{box-shadow:0 0 0 rgba(214,155,67,0)}50%{box-shadow:0 0 18px rgba(214,155,67,.35)}100%{box-shadow:0 0 0 rgba(214,155,67,0)}}
-.newLensEffect{animation:lensGlow .55s ease}.newRareEffect{animation:rareGlow .55s ease}
-/* landscape compact */
-@media (orientation:landscape) and (max-height:650px){
-  .app{grid-template-rows:44px 1fr}.topbar{padding:0 9px}.brandMark{width:25px;height:25px}.brandTitle{font-size:11px}.brandSub{display:none}.meter{padding:3px 6px;min-width:76px}.meterLabel{font-size:7px}.meterValue{font-size:10px}
-  .shell{grid-template-columns:66px 1fr}.nav{padding:5px 4px;gap:3px}.navBtn{min-height:45px;padding:5px 2px}.navIcon{font-size:15px;margin-bottom:4px}.navText{font-size:8px}
-  .page{padding:6px}.gachaGrid{gap:5px;grid-template-columns:minmax(140px,22%) minmax(280px,1fr) minmax(210px,31%)}.panelHeader{height:28px}.bannerList{height:calc(100% - 28px);padding:5px;gap:4px}.bannerCard{padding:6px 6px 6px 12px;min-height:58px}.bannerName{font-size:9px}.bannerMini{font-size:7px;margin-top:4px}.hero{padding:10px;width:88%}.heroTitle{font-size:clamp(16px,2.7vw,26px);margin:6px 0}.heroDesc{font-size:8px}.pickupPlate{margin-top:8px;gap:4px}.pickupChip{padding:4px 6px;font-size:7px}.exposureBar{bottom:7px;font-size:7px}.shutterStrip{padding:4px 6px}.pullBtn{height:30px}.statusRail{padding:4px 5px}.statusV{font-size:8px}.resultList{padding:4px;gap:3px}.resultCard{min-height:52px;padding:6px 5px 5px 9px}.resultName{font-size:8px}.resultMeta{font-size:6px}
-  .collectionList,.lensGroups{grid-template-columns:repeat(4,minmax(0,1fr))}.charCard{min-height:58px;padding:6px}.contentScroll{padding:6px}.toolbar{padding:4px 6px}.tinyBtn{height:25px;font-size:8px}.exchangeList{max-height:calc(100vh - 115px)}.logList{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+/* ======================================================
+   ANALOG / OPTICAL SCREEN EFFECT
+====================================================== */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:999;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.018) 0 1px,
+      transparent 1px 3px
+    ),
+    radial-gradient(
+      circle at center,
+      transparent 50%,
+      rgba(0,0,0,.36) 100%
+    );
+  mix-blend-mode:screen;
+  opacity:.54;
+  animation:scanDrift 10s linear infinite
 }
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:998;
+  box-shadow:
+    inset 0 0 82px rgba(0,0,0,.72),
+    inset 0 0 16px rgba(255,255,255,.012)
+}
+
+@keyframes scanDrift{
+  0%{transform:translateY(0)}
+  25%{transform:translateY(.45px)}
+  55%{transform:translateY(-.25px)}
+  75%{transform:translateY(.7px)}
+  100%{transform:translateY(0)}
+}
+
+/*
+  이전 버전보다 색수차를 조금 강화.
+  여전히 텍스트가 겹쳐 보일 정도까지는 가지 않음.
+*/
+
+.app{
+  height:100%;
+  display:grid;
+  grid-template-rows:52px 1fr;
+  padding:
+    var(--safe-top)
+    var(--safe-right)
+    var(--safe-bottom)
+    var(--safe-left);
+
+  animation:globalChroma 12s ease-in-out infinite
+}
+
+@keyframes globalChroma{
+  0%,100%{
+    text-shadow:
+      .35px 0 rgba(255,66,42,.19),
+      -.32px 0 rgba(65,189,255,.17)
+  }
+
+  20%{
+    text-shadow:
+      .55px .08px rgba(255,66,42,.21),
+      -.48px -.06px rgba(65,189,255,.19)
+  }
+
+  43%{
+    text-shadow:
+      -.28px .04px rgba(255,66,42,.16),
+      .42px -.03px rgba(65,189,255,.19)
+  }
+
+  68%{
+    text-shadow:
+      .46px -.08px rgba(255,66,42,.20),
+      -.38px .06px rgba(65,189,255,.18)
+  }
+
+  84%{
+    text-shadow:
+      -.18px 0 rgba(255,66,42,.16),
+      .31px .02px rgba(65,189,255,.17)
+  }
+}
+
+/* ======================================================
+   TOP BAR
+====================================================== */
+
+.topbar{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(#11110e,#0c0c0a);
+  padding:0 14px;
+  gap:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,.28);
+  z-index:5
+}
+
+.brand{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:11px
+}
+
+.brandLogo{
+  width:39px;
+  height:31px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto
+}
+
+.brandLogo svg{
+  display:block;
+  width:100%;
+  height:100%;
+  overflow:visible;
+
+  filter:
+    drop-shadow(.55px 0 rgba(255,67,35,.23))
+    drop-shadow(-.5px 0 rgba(60,190,235,.18));
+
+  animation:logoOpticalDrift 10s ease-in-out infinite
+}
+
+@keyframes logoOpticalDrift{
+  0%,100%{transform:translate(0,0)}
+  28%{transform:translate(.3px,-.12px)}
+  57%{transform:translate(-.22px,.16px)}
+  78%{transform:translate(.14px,.05px)}
+}
+
+.brandTitle{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  font-size:13px;
+  letter-spacing:.08em
+}
+
+.brandSub{
+  font-size:9px;
+  color:var(--muted);
+  letter-spacing:.15em;
+  margin-top:2px
+}
+
+.resources{
+  display:flex;
+  gap:7px;
+  align-items:center
+}
+
+.meter{
+  border:1px solid var(--line);
+  background:#10100d;
+  border-radius:2px;
+  padding:5px 8px;
+  min-width:88px
+}
+
+.meterLabel{
+  font-size:8px;
+  color:var(--muted);
+  letter-spacing:.14em
+}
+
+.meterValue{
+  font-size:12px;
+  color:var(--amber2);
+  margin-top:1px
+}
+
+/* ======================================================
+   SHELL / NAV
+====================================================== */
+
+.shell{
+  min-height:0;
+  display:grid;
+  grid-template-columns:76px 1fr;
+  background:linear-gradient(135deg,#0c0c09,#11100d)
+}
+
+.nav{
+  border-right:1px solid var(--line);
+  background:#0d0d0a;
+  padding:8px 6px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  overflow:auto
+}
+
+.navBtn{
+  appearance:none;
+  border:1px solid transparent;
+  background:transparent;
+  padding:8px 3px;
+  border-radius:3px;
+  cursor:pointer;
+  text-align:center;
+  color:var(--muted);
+  min-height:54px
+}
+
+.navBtn:hover{
+  background:#161510;
+  color:var(--paper);
+  border-color:#2f2d24
+}
+
+.navBtn.active{
+  background:#1d1a12;
+  color:var(--amber2);
+  border-color:#57482f;
+  box-shadow:inset 3px 0 0 var(--amber)
+}
+
+.navIcon{
+  display:block;
+  font-size:19px;
+  line-height:1;
+  margin-bottom:5px
+}
+
+.navText{
+  font-size:9px;
+  line-height:1.2
+}
+
+.main{
+  min-width:0;
+  min-height:0;
+  position:relative;
+  overflow:hidden
+}
+
+/*
+  화면 전체의 아주 미세한 RGB 광학 흔들림.
+*/
+
+.main::after{
+  content:"";
+  position:absolute;
+  inset:-4px;
+  z-index:20;
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,50,32,.025),
+      transparent 15%,
+      transparent 43%,
+      rgba(44,191,240,.022) 68%,
+      transparent 91%
+    );
+
+  mix-blend-mode:screen;
+  opacity:.9;
+  animation:chromaticVeil 14s ease-in-out infinite
+}
+
+@keyframes chromaticVeil{
+  0%,100%{transform:translateX(-.7px)}
+  34%{transform:translateX(.25px)}
+  68%{transform:translateX(.9px)}
+}
+
+.page{
+  position:absolute;
+  inset:0;
+  padding:10px;
+  overflow:auto;
+  opacity:0;
+  transform:translateX(12px);
+  pointer-events:none;
+  transition:.18s ease;
+  z-index:1
+}
+
+.page.active{
+  opacity:1;
+  transform:none;
+  pointer-events:auto
+}
+
+.panel{
+  border:1px solid var(--line);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(27,26,21,.96),
+      rgba(16,16,13,.96)
+    );
+  box-shadow:0 12px 30px var(--shadow);
+  border-radius:4px
+}
+
+.panelHeader{
+  height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 10px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(#1a1915,#13130f)
+}
+
+.panelTitle{
+  font-size:10px;
+  letter-spacing:.15em;
+  color:#b8b09a
+}
+
+.panelMeta{
+  font-size:8px;
+  color:#706d61
+}
+
+/* ======================================================
+   GACHA
+====================================================== */
+
+.gachaGrid{
+  height:100%;
+  display:grid;
+  grid-template-columns:
+    minmax(150px,24%)
+    minmax(300px,1fr)
+    minmax(220px,31%);
+  gap:8px;
+  min-height:0
+}
+
+.bannerRack,
+.cameraDeck,
+.controlDeck{
+  min-height:0;
+  overflow:hidden
+}
+
+.bannerList{
+  padding:8px;
+  height:calc(100% - 34px);
+  overflow:auto;
+  display:flex;
+  flex-direction:column;
+  gap:7px
+}
+
+.bannerCard{
+  appearance:none;
+  width:100%;
+  color:inherit;
+  text-align:left;
+  position:relative;
+  border:1px solid #343128;
+  background:#12120e;
+  padding:9px 8px 9px 13px;
+  cursor:pointer;
+  min-height:72px;
+  overflow:hidden
+}
+
+.bannerCard::before{
+  content:"";
+  position:absolute;
+  left:4px;
+  top:7px;
+  bottom:7px;
+  width:3px;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #625d4d 0 5px,
+      transparent 5px 10px
+    )
+}
+
+.bannerCard:hover{
+  border-color:#615a46
+}
+
+.bannerCard.active{
+  border-color:var(--amber);
+  background:linear-gradient(100deg,#2a2215,#171611);
+  box-shadow:inset 0 0 22px rgba(214,155,67,.07)
+}
+
+.bannerType{
+  font-size:8px;
+  color:var(--amber);
+  letter-spacing:.11em;
+  margin-bottom:4px
+}
+
+.bannerName{
+  font-size:11px;
+  line-height:1.3
+}
+
+.bannerMini{
+  font-size:8px;
+  color:var(--muted);
+  margin-top:6px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+
+.cameraDeck{
+  display:grid;
+  grid-template-rows:1fr auto;
+  background:#0b0b09
+}
+
+.viewfinder{
+  position:relative;
+  min-height:0;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(90,84,62,.18),
+      transparent 28%
+    ),
+    linear-gradient(160deg,#12110d,#090907 65%);
+
+  animation:viewfinderBreath 9s ease-in-out infinite
+}
+
+@keyframes viewfinderBreath{
+  0%,100%{filter:brightness(1)}
+  44%{filter:brightness(.99)}
+  51%{filter:brightness(1.007)}
+}
+
+.viewfinder::before{
+  content:"";
+  position:absolute;
+  inset:11px;
+  border:1px solid rgba(214,155,67,.35);
+  pointer-events:none;
+  animation:gateBreath 8s ease-in-out infinite
+}
+
+.viewfinder::after{
+  content:"";
+  position:absolute;
+  inset:24px;
+  border:1px solid rgba(215,208,185,.08);
+  pointer-events:none
+}
+
+@keyframes gateBreath{
+  0%,100%{opacity:.9}
+  50%{opacity:.58}
+}
+
+.corner{
+  position:absolute;
+  width:26px;
+  height:26px;
+  border-color:var(--paper);
+  opacity:.35
+}
+
+.c1{left:20px;top:20px;border-left:1px solid;border-top:1px solid}
+.c2{right:20px;top:20px;border-right:1px solid;border-top:1px solid}
+.c3{left:20px;bottom:20px;border-left:1px solid;border-bottom:1px solid}
+.c4{right:20px;bottom:20px;border-right:1px solid;border-bottom:1px solid}
+
+.focusCross{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:54px;
+  height:34px;
+  transform:translate(-50%,-50%);
+  border:1px solid rgba(214,155,67,.3)
+}
+
+.focusCross::before,
+.focusCross::after{
+  content:"";
+  position:absolute;
+  background:rgba(214,155,67,.35)
+}
+
+.focusCross::before{
+  width:18px;
+  height:1px;
+  left:17px;
+  top:16px
+}
+
+.focusCross::after{
+  width:1px;
+  height:18px;
+  left:26px;
+  top:8px
+}
+
+.decoTelemetry{
+  position:absolute;
+  z-index:3;
+  pointer-events:none;
+  font-size:6px;
+  letter-spacing:.18em;
+  color:#696557;
+  opacity:.55;
+  transition:opacity .25s ease,transform .25s ease
+}
+
+.decoTelemetry.changing{
+  opacity:.1;
+  transform:translateY(1px)
+}
+
+.decoA{left:31px;top:32px}
+.decoB{right:31px;top:32px;text-align:right}
+.decoC{left:31px;bottom:29px;color:#5e6659}
+
+.decoPulse{
+  display:inline-block;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:#71664d;
+  margin-right:5px;
+  vertical-align:middle;
+  animation:decoPulse 3.8s ease-in-out infinite
+}
+
+@keyframes decoPulse{
+  0%,100%{opacity:.24}
+  50%{opacity:.76}
+}
+
+.hero{
+  width:min(84%,640px);
+  text-align:center;
+  padding:22px;
+  position:relative;
+  z-index:2
+}
+
+.heroOverline{
+  font-size:9px;
+  color:var(--amber);
+  letter-spacing:.18em
+}
+
+.heroTitle{
+  font-family:Georgia,"Noto Serif KR",serif;
+  font-size:clamp(18px,3.2vw,34px);
+  line-height:1.15;
+  margin:9px 0 8px;
+  color:#e8e0c9;
+  text-shadow:
+    .8px 0 rgba(255,70,40,.18),
+    -.8px 0 rgba(70,190,240,.15),
+    0 2px 0 #000
+}
+
+.heroDesc{
+  font-size:10px;
+  line-height:1.6;
+  color:var(--muted);
+  max-width:560px;
+  margin:0 auto
+}
+
+.pickupPlate{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:7px;
+  margin-top:16px
+}
+
+.pickupChip{
+  border:1px solid #4b4739;
+  background:#12110e;
+  padding:6px 8px;
+  font-size:9px
+}
+
+.pickupChip.lens{
+  border-color:#36545e;
+  color:var(--lens)
+}
+
+.exposureBar{
+  position:absolute;
+  left:20px;
+  right:20px;
+  bottom:10px;
+  display:flex;
+  justify-content:space-between;
+  color:#777266;
+  font-size:8px
+}
+
+.exposureBar strong{
+  color:var(--amber2);
+  font-weight:500
+}
+
+.shutterStrip{
+  border-top:1px solid var(--line);
+  background:#11110e;
+  padding:7px 10px;
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  align-items:center;
+  gap:7px
+}
+
+.shutterHint{
+  font-size:8px;
+  color:#777267
+}
+
+.pullBtn{
+  height:34px;
+  padding:0 14px;
+  border:1px solid #665535;
+  background:#241d12;
+  color:#e3c895;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden
+}
+
+.pullBtn:hover{background:#302417}
+
+.pullBtn.primary{
+  background:#5b3619;
+  border-color:#9d6832;
+  color:#ffe1a5;
+  min-width:92px
+}
+
+.pullBtn:disabled{
+  opacity:.45;
+  cursor:not-allowed
+}
+
+/* ======================================================
+   RESULT PANEL
+====================================================== */
+
+.controlDeck{
+  display:grid;
+  grid-template-rows:auto 1fr;
+  min-height:0
+}
+
+.statusRail{
+  padding:7px 8px;
+  border-bottom:1px solid var(--line);
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px
+}
+
+.statusBox{
+  background:#11110e;
+  border:1px solid #302e26;
+  padding:5px 6px
+}
+
+.statusK{
+  font-size:7px;
+  color:#6f6b5e
+}
+
+.statusV{
+  font-size:10px;
+  color:#c8c0aa;
+  margin-top:2px
+}
+
+.resultPanel{
+  min-height:0;
+  display:grid;
+  grid-template-rows:30px 1fr
+}
+
+.resultHeader{
+  padding:0 8px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:8px;
+  color:#777267;
+  border-bottom:1px solid #2e2c24
+}
+
+.resultList{
+  padding:6px;
+  overflow:auto;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  align-content:start;
+  gap:5px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 7px,
+      #28261f 7px 10px,
+      transparent 10px calc(100% - 10px),
+      #28261f calc(100% - 10px) calc(100% - 7px),
+      transparent calc(100% - 7px)
+    )
+}
+
+.resultEmpty{
+  grid-column:1/-1;
+  min-height:150px;
+  display:grid;
+  place-items:center;
+  color:#555146;
+  font-size:9px;
+  text-align:center;
+  line-height:1.7
+}
+
+.resultCard{
+  position:relative;
+  min-height:64px;
+  background:#0e0e0c;
+  border:1px solid #343127;
+  padding:8px 7px 7px 10px;
+  overflow:hidden;
+
+  animation:developFrame .18s ease-out both
+}
+
+@keyframes developFrame{
+  0%{
+    opacity:0;
+    transform:translateY(3px) scale(.985);
+    filter:brightness(1.3)
+  }
+
+  45%{
+    opacity:1;
+    filter:brightness(1.08)
+  }
+
+  100%{
+    transform:none;
+    filter:none
+  }
+}
+
+.resultCard::before{
+  content:"";
+  position:absolute;
+  left:3px;
+  top:4px;
+  bottom:4px;
+  width:2px;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #4c493e 0 4px,
+      transparent 4px 8px
+    )
+}
+
+.resultGrade{
+  font-size:7px;
+  letter-spacing:.05em;
+  margin-bottom:5px
+}
+
+.resultName{
+  font-size:10px;
+  line-height:1.3
+}
+
+.resultMeta{
+  font-size:7px;
+  color:#777267;
+  margin-top:5px
+}
+
+.resultFlags{
+  position:absolute;
+  right:5px;
+  top:5px;
+  display:flex;
+  gap:3px
+}
+
+.flag{
+  font-size:6px;
+  padding:2px 3px;
+  border:1px solid #574c32;
+  color:#e7b969;
+  background:#1f1910
+}
+
+.flag.new{
+  color:#ffe27c;
+  border-color:#8b742d
+}
+
+.lensResult{
+  border-color:#2d4850;
+  background:#0d1416
+}
+
+.infra{color:var(--infra)}
+.ultra{color:var(--ultra)}
+.lumen{color:var(--lumen)}
+.lens{color:var(--lens)}
+
+/* ======================================================
+   OTHER PAGES
+====================================================== */
+
+.pageGrid{
+  height:100%;
+  display:grid;
+  grid-template-rows:auto 1fr;
+  gap:8px;
+  min-height:0
+}
+
+.toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:7px 8px
+}
+
+.toolbarGroup{
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap
+}
+
+.tinyBtn{
+  height:28px;
+  border:1px solid #38352b;
+  background:#14130f;
+  color:#918b78;
+  padding:0 9px;
+  cursor:pointer
+}
+
+.tinyBtn.active,
+.tinyBtn:hover{
+  border-color:#776443;
+  color:#e1bd7b;
+  background:#211b12
+}
+
+.contentScroll{
+  min-height:0;
+  overflow:auto;
+  padding:9px
+}
+
+/* ======================================================
+   COLLECTION
+   글자 크기 전반 확대
+====================================================== */
+
+.collectionList{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:7px;
+  align-content:start
+}
+
+.charCard{
+  border:1px solid #343127;
+  background:#11110e;
+  padding:10px;
+  min-height:88px;
+  position:relative
+}
+
+.charCard.dimmed{
+  opacity:.28;
+  filter:grayscale(.7)
+}
+
+/*
+  기존 7 → 9
+*/
+.charCard .resultGrade{
+  font-size:9px;
+  margin-bottom:7px;
+  letter-spacing:.06em
+}
+
+/*
+  기존 10 → 13
+*/
+.charName{
+  font-size:13px;
+  font-weight:600;
+  line-height:1.3
+}
+
+/*
+  기존 7 → 9
+*/
+.charGroup{
+  font-size:9px;
+  color:#777267;
+  margin-top:5px;
+  line-height:1.35
+}
+
+.lensChildren{
+  margin-top:9px;
+  border-top:1px solid #302e26;
+  padding-top:7px
+}
+
+/*
+  기존 8 → 10
+*/
+.lensChild{
+  font-size:10px;
+  color:var(--lens);
+  line-height:1.4;
+  padding:3px 0;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+
+.groupHeader{
+  grid-column:1/-1;
+  font-size:11px;
+  color:#c6b99b;
+  border-bottom:1px solid #3a372c;
+  padding:9px 3px 5px;
+  letter-spacing:.08em
+}
+
+/* ======================================================
+   LENS ARCHIVE
+====================================================== */
+
+.lensGroups{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:7px;
+  align-content:start
+}
+
+.lensGroup{
+  border:1px solid #33434a;
+  background:#0d1214
+}
+
+.lensGroupHead{
+  padding:8px 9px;
+  border-bottom:1px solid #293b42;
+  display:flex;
+  justify-content:space-between
+}
+
+.lensGroupName{
+  font-size:11px
+}
+
+.lensGroupCount{
+  font-size:9px;
+  color:#718d96
+}
+
+.lensSlots{
+  padding:6px;
+  display:grid;
+  gap:5px
+}
+
+.lensSlot{
+  border:1px solid #2f4046;
+  background:#10181b;
+  padding:8px;
+  font-size:9px;
+  color:var(--lens);
+  min-height:44px
+}
+
+.lensSlot.missing{
+  opacity:.25
+}
+
+.slotParent{
+  font-size:8px;
+  color:#5e747b;
+  margin-top:4px
+}
+
+/* ======================================================
+   EXCHANGE
+====================================================== */
+
+.exchangeColumns{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px
+}
+
+.exchangeSection{
+  border:1px solid var(--line);
+  background:#10100d
+}
+
+.exchangeHead{
+  height:31px;
+  padding:0 8px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--line);
+  font-size:9px;
+  color:#b7ae99
+}
+
+.exchangeList{
+  padding:6px;
+  display:grid;
+  gap:5px;
+  max-height:calc(100vh - 145px);
+  overflow:auto
+}
+
+.exchangeRow{
+  border:1px solid #302e26;
+  background:#13120f;
+  padding:6px 7px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:7px;
+  align-items:center
+}
+
+.exchangeName{
+  font-size:9px
+}
+
+.exchangeSub{
+  font-size:7px;
+  color:#6f6b60;
+  margin-top:3px
+}
+
+.exchangeBtn{
+  height:28px;
+  border:1px solid #654f2e;
+  background:#21190f;
+  color:#e0b76f;
+  padding:0 8px;
+  cursor:pointer
+}
+
+.exchangeBtn:disabled{
+  opacity:.35;
+  cursor:not-allowed
+}
+
+/* ======================================================
+   HISTORY
+====================================================== */
+
+.logList{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:6px;
+  align-content:start
+}
+
+.logCard{
+  border:1px solid #343127;
+  background:#11110e;
+  padding:7px
+}
+
+.logMeta{
+  font-size:7px;
+  color:#777267;
+  border-bottom:1px solid #29271f;
+  padding-bottom:5px;
+  margin-bottom:5px
+}
+
+.logLine{
+  font-size:8px;
+  padding:2px 0;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+
+.resetBtn{
+  border-color:#5f3028!important;
+  color:#d67a68!important
+}
+
+.note{
+  font-size:8px;
+  color:#747064;
+  line-height:1.5
+}
+
+/* ======================================================
+   FLASH / RARITY
+====================================================== */
+
+.flash{
+  position:fixed;
+  inset:0;
+  background:#fff;
+  opacity:0;
+  pointer-events:none;
+  z-index:1000
+}
+
+.flash.fire{
+  animation:flash .26s ease-out
+}
+
+@keyframes flash{
+  0%{opacity:0}
+  20%{opacity:.88}
+  100%{opacity:0}
+}
+
+@keyframes lensGlow{
+  0%{box-shadow:0 0 0 rgba(143,201,216,0)}
+  50%{box-shadow:0 0 18px rgba(143,201,216,.45)}
+  100%{box-shadow:0 0 0 rgba(143,201,216,0)}
+}
+
+@keyframes rareGlow{
+  0%{box-shadow:0 0 0 rgba(214,155,67,0)}
+  50%{box-shadow:0 0 18px rgba(214,155,67,.35)}
+  100%{box-shadow:0 0 0 rgba(214,155,67,0)}
+}
+
+.newLensEffect{animation:lensGlow .55s ease}
+.newRareEffect{animation:rareGlow .55s ease}
+
+/* ======================================================
+   LANDSCAPE COMPACT
+====================================================== */
+
+@media (orientation:landscape) and (max-height:650px){
+
+  .app{grid-template-rows:44px 1fr}
+
+  .topbar{padding:0 9px}
+
+  .brandLogo{
+    width:34px;
+    height:26px
+  }
+
+  .brandTitle{font-size:11px}
+  .brandSub{display:none}
+
+  .meter{
+    padding:3px 6px;
+    min-width:76px
+  }
+
+  .meterLabel{font-size:7px}
+  .meterValue{font-size:10px}
+
+  .shell{grid-template-columns:66px 1fr}
+
+  .nav{
+    padding:5px 4px;
+    gap:3px
+  }
+
+  .navBtn{
+    min-height:45px;
+    padding:5px 2px
+  }
+
+  .navIcon{
+    font-size:15px;
+    margin-bottom:4px
+  }
+
+  .navText{font-size:8px}
+  .page{padding:6px}
+
+  .gachaGrid{
+    gap:5px;
+    grid-template-columns:
+      minmax(140px,22%)
+      minmax(280px,1fr)
+      minmax(210px,31%)
+  }
+
+  .panelHeader{height:28px}
+
+  .bannerList{
+    height:calc(100% - 28px);
+    padding:5px;
+    gap:4px
+  }
+
+  .bannerCard{
+    padding:6px 6px 6px 12px;
+    min-height:58px
+  }
+
+  .bannerName{font-size:9px}
+  .bannerMini{font-size:7px;margin-top:4px}
+
+  .hero{
+    padding:10px;
+    width:88%
+  }
+
+  .heroTitle{
+    font-size:clamp(16px,2.7vw,26px);
+    margin:6px 0
+  }
+
+  .heroDesc{font-size:8px}
+
+  .pickupPlate{
+    margin-top:8px;
+    gap:4px
+  }
+
+  .pickupChip{
+    padding:4px 6px;
+    font-size:7px
+  }
+
+  .exposureBar{
+    bottom:7px;
+    font-size:7px
+  }
+
+  .decoTelemetry{font-size:5px}
+
+  .shutterStrip{padding:4px 6px}
+  .pullBtn{height:30px}
+
+  .statusRail{padding:4px 5px}
+  .statusV{font-size:8px}
+
+  .resultList{
+    padding:4px;
+    gap:3px
+  }
+
+  .resultCard{
+    min-height:52px;
+    padding:6px 5px 5px 9px
+  }
+
+  .resultName{font-size:8px}
+  .resultMeta{font-size:6px}
+
+  .collectionList,
+  .lensGroups{
+    grid-template-columns:repeat(4,minmax(0,1fr))
+  }
+
+  /*
+    가로 휴대폰에서도 기존보다 크게 유지.
+  */
+
+  .charCard{
+    min-height:69px;
+    padding:7px
+  }
+
+  .charCard .resultGrade{
+    font-size:7px;
+    margin-bottom:4px
+  }
+
+  .charName{
+    font-size:10px
+  }
+
+  .charGroup{
+    font-size:7px
+  }
+
+  .lensChild{
+    font-size:8px
+  }
+
+  .contentScroll{padding:6px}
+  .toolbar{padding:4px 6px}
+  .tinyBtn{height:25px;font-size:8px}
+
+  .exchangeList{
+    max-height:calc(100vh - 115px)
+  }
+
+  .logList{
+    grid-template-columns:repeat(3,minmax(0,1fr))
+  }
+}
+
+/* ======================================================
+   PORTRAIT
+====================================================== */
+
 @media (max-width:760px) and (orientation:portrait){
-  html,body{overflow:auto}.app{height:auto;min-height:100vh;grid-template-rows:52px auto}.shell{grid-template-columns:1fr;grid-template-rows:auto 1fr}.nav{position:sticky;top:52px;z-index:10;border-right:0;border-bottom:1px solid var(--line);flex-direction:row;overflow:auto}.navBtn{min-width:72px;min-height:48px}.main{height:calc(100vh - 110px)}.gachaGrid{grid-template-columns:1fr;grid-template-rows:auto minmax(280px,1fr) auto}.bannerRack{max-height:180px}.controlDeck{min-height:280px}.collectionList,.lensGroups,.exchangeColumns,.logList{grid-template-columns:1fr}
+
+  html,body{overflow:auto}
+
+  .app{
+    height:auto;
+    min-height:100vh;
+    grid-template-rows:52px auto
+  }
+
+  .shell{
+    grid-template-columns:1fr;
+    grid-template-rows:auto 1fr
+  }
+
+  .nav{
+    position:sticky;
+    top:52px;
+    z-index:10;
+    border-right:0;
+    border-bottom:1px solid var(--line);
+    flex-direction:row;
+    overflow:auto
+  }
+
+  .navBtn{
+    min-width:72px;
+    min-height:48px
+  }
+
+  .main{
+    height:calc(100vh - 110px)
+  }
+
+  .gachaGrid{
+    grid-template-columns:1fr;
+    grid-template-rows:auto minmax(280px,1fr) auto
+  }
+
+  .bannerRack{max-height:180px}
+  .controlDeck{min-height:280px}
+
+  .collectionList,
+  .lensGroups,
+  .exchangeColumns,
+  .logList{
+    grid-template-columns:1fr
+  }
+}
+
+/* 움직임 최소화 옵션 */
+@media (prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    animation:none!important;
+    transition:none!important
+  }
 }
 </style>
 </head>
+
 <body>
+
 <div class="flash" id="flash"></div>
+
+<!-- ======================================================
+     AUDIO SLOTS
+====================================================== -->
+
+<!-- 셔터: 일반 -->
+<audio
+  id="shutterNormal"
+  src="audio/shutter-normal.mp3"
+  preload="auto">
+</audio>
+
+<!-- 셔터: LUMEN / 섭동 렌즈 포함 -->
+<audio
+  id="shutterRare"
+  src="audio/shutter-rare.mp3"
+  preload="auto">
+</audio>
+
+<!--
+  결과 하나가 패널에 현상될 때마다 재생.
+  JS에서 여러 개 Audio 인스턴스를 만들어 겹쳐 재생함.
+-->
+<audio
+  id="resultRevealSource"
+  src="audio/result-reveal.mp3"
+  preload="auto">
+</audio>
+
 <div class="app">
-  <header class="topbar">
-    <div class="brand">
-      <div class="brandMark">◉</div>
-      <div>
-        <div class="brandTitle">N.O.D. HEADHUNTING TERMINAL</div>
-        <div class="brandSub"> RECRUITMENT / PERTURBATION LENS ARCHIVE</div>
+
+<header class="topbar">
+
+  <div class="brand">
+
+    <div class="brandLogo" aria-label="N.O.D.">
+
+      <svg
+        viewBox="0 0 960 754"
+        role="img"
+        aria-hidden="true"
+        preserveAspectRatio="xMidYMid meet">
+
+        <polygon
+          fill="#E0600A"
+          points="
+            85,0 320,0 336,16 336,738
+            320,754 85,754 0,669 0,85
+          "
+        />
+
+        <polygon
+          fill="#F1ECE4"
+          points="
+            352,0 590,0 606,16 606,738
+            590,754 352,754 336,738 336,16
+          "
+        />
+
+        <polygon
+          fill="#24211F"
+          points="
+            622,0 858,0 943,85 943,669
+            858,754 622,754 606,738 606,16
+          "
+        />
+
+      </svg>
+
+    </div>
+
+    <div>
+      <div class="brandTitle">
+        N.O.D. HEADHUNTING TERMINAL
+      </div>
+
+      <div class="brandSub">
+        RECRUITMENT / PERTURBATION LENS ARCHIVE
       </div>
     </div>
-    <div class="resources">
-      <div class="meter"><div class="meterLabel">EXPOSURES</div><div class="meterValue" id="totalCountTop">0</div></div>
-      <div class="meter"><div class="meterLabel">AFTERGLOW</div><div class="meterValue" id="glowCountTop">0</div></div>
-    </div>
-  </header>
 
-  <div class="shell">
-    <nav class="nav">
-      <button class="navBtn active" data-page="gacha"><span class="navIcon">◉</span><span class="navText">헤드헌팅</span></button>
-      <button class="navBtn" data-page="collection"><span class="navIcon">▣</span><span class="navText">보유 인원</span></button>
-      <button class="navBtn" data-page="lenses"><span class="navIcon">◇</span><span class="navText">섭동 렌즈</span></button>
-      <button class="navBtn" data-page="exchange"><span class="navIcon">⌁</span><span class="navText">잔광 보정</span></button>
-      <button class="navBtn" data-page="history"><span class="navIcon">▤</span><span class="navText">가챠 기록</span></button>
-    </nav>
-
-    <main class="main">
-      <!-- GACHA -->
-      <section class="page active" id="page-gacha">
-        <div class="gachaGrid">
-          <div class="panel bannerRack">
-            <div class="panelHeader"><span class="panelTitle">FILM MAGAZINE</span><span class="panelMeta">BANNERS</span></div>
-            <div class="bannerList" id="bannerList"></div>
-          </div>
-
-          <div class="panel cameraDeck">
-            <div class="viewfinder">
-              <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span><span class="focusCross"></span>
-              <div class="hero">
-                <div class="heroOverline" id="bannerType">FOCUSED HEADHUNTING</div>
-                <div class="heroTitle" id="bannerTitle">-</div>
-                <div class="heroDesc" id="bannerSubtitle">-</div>
-                <div class="pickupPlate" id="pickupInfo"></div>
-              </div>
-              <div class="exposureBar"><span>ISO <strong>446</strong></span><span>APERTURE <strong>ƒ/1.4</strong></span><span>MODE <strong>AUTO</strong></span><span>LUMEN <strong>3%</strong></span></div>
-            </div>
-            <div class="shutterStrip">
-              <div class="shutterHint">LUMEN 3% · ULTRA 20% · INFRA 77% / 10회 시 ULTRA 이상 1개 보장</div>
-              <button class="pullBtn" id="btn1">1 회 현상</button>
-              <button class="pullBtn primary" id="btn10">10 회 현상</button>
-            </div>
-          </div>
-
-          <div class="panel controlDeck">
-            <div class="statusRail">
-              <div class="statusBox"><div class="statusK">CURRENT</div><div class="statusV" id="currentBannerShort">-</div></div>
-              <div class="statusBox"><div class="statusK">OWNED</div><div class="statusV" id="ownedCount">0</div></div>
-              <div class="statusBox"><div class="statusK">LENSES</div><div class="statusV" id="lensCount">0/27</div></div>
-            </div>
-            <div class="resultPanel">
-              <div class="resultHeader"><span>DEVELOPED NEGATIVES</span><span id="resultCount">NO EXPOSURE</span></div>
-              <div class="resultList" id="result"><div class="resultEmpty">셔터를 눌러<br>새로운 상을 현상하십시오.</div></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- COLLECTION -->
-      <section class="page" id="page-collection">
-        <div class="pageGrid">
-          <div class="panel toolbar">
-            <div class="toolbarGroup">
-              <button class="tinyBtn active" data-sort="grade">등급순</button>
-              <button class="tinyBtn" data-sort="name">가나다순</button>
-              <button class="tinyBtn" data-sort="group">소속순</button>
-              <button class="tinyBtn" data-sort="all">전체보기</button>
-            </div>
-            <div class="note">CONTACT SHEET / INFRA 9인은 기본 지급 · 보유 렌즈는 하위 프레임으로 표시</div>
-          </div>
-          <div class="panel contentScroll"><div class="collectionList" id="collectionArea"></div></div>
-        </div>
-      </section>
-
-      <!-- LENSES -->
-      <section class="page" id="page-lenses">
-        <div class="pageGrid">
-          <div class="panel toolbar">
-            <div><span class="panelTitle">PERTURBATION LENS ARCHIVE</span></div>
-            <div class="note" id="lensProgress">0 / 27</div>
-          </div>
-          <div class="panel contentScroll"><div class="lensGroups" id="lensCollectionArea"></div></div>
-        </div>
-      </section>
-
-      <!-- EXCHANGE -->
-      <section class="page" id="page-exchange">
-        <div class="pageGrid">
-          <div class="panel toolbar">
-            <div><span class="panelTitle">DARKROOM AFTERGLOW COMPENSATION</span></div>
-            <div class="note">ULTRA 50 · LUMEN 200 · 섭동 렌즈 200</div>
-          </div>
-          <div class="exchangeColumns">
-            <div class="exchangeSection"><div class="exchangeHead"><span>CHARACTER NEGATIVES</span><span id="exchangeCharCount">0</span></div><div class="exchangeList" id="exchangeCharacters"></div></div>
-            <div class="exchangeSection"><div class="exchangeHead"><span>PERTURBATION LENSES</span><span id="exchangeLensCount">0</span></div><div class="exchangeList" id="exchangeLenses"></div></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- HISTORY -->
-      <section class="page" id="page-history">
-        <div class="pageGrid">
-          <div class="panel toolbar">
-            <div><span class="panelTitle">EXPOSURE LOG / LAST 200</span></div>
-            <div class="toolbarGroup"><button class="tinyBtn resetBtn">기록·보유 초기화</button></div>
-          </div>
-          <div class="panel contentScroll"><div class="logList" id="logList"></div></div>
-        </div>
-      </section>
-    </main>
   </div>
+
+  <div class="resources">
+
+    <div class="meter">
+      <div class="meterLabel">EXPOSURES</div>
+      <div class="meterValue" id="totalCountTop">0</div>
+    </div>
+
+    <div class="meter">
+      <div class="meterLabel">AFTERGLOW</div>
+      <div class="meterValue" id="glowCountTop">0</div>
+    </div>
+
+  </div>
+
+</header>
+
+<div class="shell">
+
+<nav class="nav">
+
+  <button class="navBtn active" data-page="gacha">
+    <span class="navIcon">◉</span>
+    <span class="navText">헤드헌팅</span>
+  </button>
+
+  <button class="navBtn" data-page="collection">
+    <span class="navIcon">▣</span>
+    <span class="navText">보유 인원</span>
+  </button>
+
+  <button class="navBtn" data-page="lenses">
+    <span class="navIcon">◇</span>
+    <span class="navText">섭동 렌즈</span>
+  </button>
+
+  <button class="navBtn" data-page="exchange">
+    <span class="navIcon">⌁</span>
+    <span class="navText">잔광 보정</span>
+  </button>
+
+  <button class="navBtn" data-page="history">
+    <span class="navIcon">▤</span>
+    <span class="navText">가챠 기록</span>
+  </button>
+
+</nav>
+
+<main class="main">
+
+<!-- ====================================================
+     GACHA PAGE
+==================================================== -->
+
+<section class="page active" id="page-gacha">
+
+<div class="gachaGrid">
+
+<div class="panel bannerRack">
+
+  <div class="panelHeader">
+    <span class="panelTitle">FILM MAGAZINE</span>
+    <span class="panelMeta">BANNERS</span>
+  </div>
+
+  <div class="bannerList" id="bannerList"></div>
+
+</div>
+
+<div class="panel cameraDeck">
+
+<div class="viewfinder">
+
+  <span class="corner c1"></span>
+  <span class="corner c2"></span>
+  <span class="corner c3"></span>
+  <span class="corner c4"></span>
+
+  <span class="focusCross"></span>
+
+  <div class="decoTelemetry decoA" id="decoA">
+    FRAME SYNC / 446-A
+  </div>
+
+  <div class="decoTelemetry decoB" id="decoB">
+    OPTICAL PATH / NOMINAL
+  </div>
+
+  <div class="decoTelemetry decoC">
+    <span class="decoPulse"></span>
+    DARKROOM LINK /
+    <span id="decoC">STABLE</span>
+  </div>
+
+  <div class="hero">
+
+    <div class="heroOverline" id="bannerType">
+      FOCUSED HEADHUNTING
+    </div>
+
+    <div class="heroTitle" id="bannerTitle">
+      -
+    </div>
+
+    <div class="heroDesc" id="bannerSubtitle">
+      -
+    </div>
+
+    <div class="pickupPlate" id="pickupInfo"></div>
+
+  </div>
+
+  <div class="exposureBar">
+    <span>ISO <strong>446</strong></span>
+    <span>APERTURE <strong>ƒ/1.4</strong></span>
+    <span>MODE <strong>AUTO</strong></span>
+    <span>LUMEN <strong>3%</strong></span>
+  </div>
+
+</div>
+
+<div class="shutterStrip">
+
+  <div class="shutterHint">
+    LUMEN 3% · ULTRA 20% · INFRA 77%
+    / 10회 시 ULTRA 이상 1개 보장
+  </div>
+
+  <button class="pullBtn" id="btn1">
+    1 회 현상
+  </button>
+
+  <button class="pullBtn primary" id="btn10">
+    10 회 현상
+  </button>
+
+</div>
+
+</div>
+
+<div class="panel controlDeck">
+
+<div class="statusRail">
+
+  <div class="statusBox">
+    <div class="statusK">CURRENT</div>
+    <div class="statusV" id="currentBannerShort">-</div>
+  </div>
+
+  <div class="statusBox">
+    <div class="statusK">OWNED</div>
+    <div class="statusV" id="ownedCount">0</div>
+  </div>
+
+  <div class="statusBox">
+    <div class="statusK">LENSES</div>
+    <div class="statusV" id="lensCount">0/0</div>
+  </div>
+
+</div>
+
+<div class="resultPanel">
+
+  <div class="resultHeader">
+    <span>DEVELOPED NEGATIVES</span>
+    <span id="resultCount">NO EXPOSURE</span>
+  </div>
+
+  <div class="resultList" id="result">
+
+    <div class="resultEmpty">
+      셔터를 눌러<br>
+      새로운 상을 현상하십시오.
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ====================================================
+     COLLECTION PAGE
+==================================================== -->
+
+<section class="page" id="page-collection">
+
+<div class="pageGrid">
+
+<div class="panel toolbar">
+
+  <div class="toolbarGroup">
+
+    <button class="tinyBtn active" data-sort="grade">
+      등급순
+    </button>
+
+    <button class="tinyBtn" data-sort="name">
+      가나다순
+    </button>
+
+    <button class="tinyBtn" data-sort="group">
+      소속순
+    </button>
+
+    <button class="tinyBtn" data-sort="all">
+      전체보기
+    </button>
+
+  </div>
+
+  <div class="note" id="collectionNote">
+    CONTACT SHEET
+  </div>
+
+</div>
+
+<div class="panel contentScroll">
+  <div class="collectionList" id="collectionArea"></div>
+</div>
+
+</div>
+
+</section>
+
+<!-- ====================================================
+     LENS PAGE
+==================================================== -->
+
+<section class="page" id="page-lenses">
+
+<div class="pageGrid">
+
+<div class="panel toolbar">
+
+  <div>
+    <span class="panelTitle">
+      PERTURBATION LENS ARCHIVE
+    </span>
+  </div>
+
+  <div class="note" id="lensProgress">
+    0 / 0
+  </div>
+
+</div>
+
+<div class="panel contentScroll">
+  <div class="lensGroups" id="lensCollectionArea"></div>
+</div>
+
+</div>
+
+</section>
+
+<!-- ====================================================
+     EXCHANGE PAGE
+==================================================== -->
+
+<section class="page" id="page-exchange">
+
+<div class="pageGrid">
+
+<div class="panel toolbar">
+
+  <div>
+    <span class="panelTitle">
+      DARKROOM AFTERGLOW COMPENSATION
+    </span>
+  </div>
+
+  <div class="note">
+    ULTRA 50 · LUMEN 200 · 섭동 렌즈 200
+  </div>
+
+</div>
+
+<div class="exchangeColumns">
+
+<div class="exchangeSection">
+
+  <div class="exchangeHead">
+    <span>CHARACTER NEGATIVES</span>
+    <span id="exchangeCharCount">0</span>
+  </div>
+
+  <div class="exchangeList" id="exchangeCharacters"></div>
+
+</div>
+
+<div class="exchangeSection">
+
+  <div class="exchangeHead">
+    <span>PERTURBATION LENSES</span>
+    <span id="exchangeLensCount">0</span>
+  </div>
+
+  <div class="exchangeList" id="exchangeLenses"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ====================================================
+     HISTORY PAGE
+==================================================== -->
+
+<section class="page" id="page-history">
+
+<div class="pageGrid">
+
+<div class="panel toolbar">
+
+  <div>
+    <span class="panelTitle">
+      EXPOSURE LOG / LAST 200
+    </span>
+  </div>
+
+  <div class="toolbarGroup">
+    <button class="tinyBtn resetBtn">
+      기록·보유 초기화
+    </button>
+  </div>
+
+</div>
+
+<div class="panel contentScroll">
+  <div class="logList" id="logList"></div>
+</div>
+
+</div>
+
+</section>
+
+</main>
+</div>
 </div>
 
 <script>
+
+/* =========================================================
+   CHARACTER DB
+========================================================= */
+
 const DB=[
-{name:"발렌티나",rarity:3,group:"N.O.D."},{name:"할",rarity:1,group:"N.O.D."},{name:"올가",rarity:1,group:"N.O.D."},{name:"도로시",rarity:1,group:"N.O.D."},{name:"백연",rarity:1,group:"N.O.D."},{name:"쿠로세",rarity:1,group:"N.O.D."},{name:"재클린",rarity:1,group:"N.O.D."},{name:"유나",rarity:1,group:"N.O.D."},{name:"비아트리스",rarity:1,group:"N.O.D."},{name:"오웬",rarity:1,group:"N.O.D."},{name:"빈센트",rarity:2,group:"N.O.D."},{name:"크리스틴",rarity:2,group:"N.O.D."},{name:"유진",rarity:3,group:"N.O.D."},{name:"유란",rarity:3,group:"N.O.D."},{name:"세샤",rarity:3,group:"N.O.D."},{name:"메이",rarity:3,group:"N.O.D."},{name:"아이작",rarity:2,group:"N.O.D."},{name:"홍포",rarity:2,group:"흑월상회"},{name:"항",rarity:3,group:"흑월상회"},{name:"호레이쇼",rarity:3,group:"듀마 엔진"},{name:"아토스",rarity:3,group:"듀마 엔진"},{name:"루다",rarity:3,group:"서천 바이오 제약"},{name:"가람",rarity:2,group:"서천 바이오 제약"},{name:"윤 진사",rarity:3,group:"서천 바이오 제약"},{name:"진",rarity:3,group:"서천 바이오 제약"},{name:"리",rarity:2,group:"서천 바이오 제약"},{name:"요제프",rarity:3,group:"자오선 이상현상 관리국"},{name:"티토",rarity:3,group:"자오선 이상현상 관리국"},{name:"제니퍼",rarity:2,group:"자오선 이상현상 관리국"},{name:"로렌츠",rarity:2,group:"아스트론 학파 연구지구"},{name:"가온",rarity:3,group:"아스트론 학파 연구지구"},{name:"아이린",rarity:3,group:"아스트론 학파 연구지구"},{name:"베르너",rarity:2,group:"아스트론 학파 연구지구"},{name:"노딘",rarity:3,group:"아스트론 학파 연구지구"},{name:"루핀",rarity:3,group:"볼칸 중공업"},{name:"요루",rarity:3,group:"볼칸 중공업"},{name:"헤더스",rarity:2,group:"볼칸 중공업"},{name:"마리",rarity:3,group:"아스트론 학파 연구지구"},{name:"니콜라",rarity:2,group:"아스트론 학파 연구지구"},{name:"프리츠",rarity:2,group:"아스트론 학파 연구지구"},{name:"미라이",rarity:3,group:"볼칸 중공업"},{name:"페이",rarity:3,group:"볼칸 중공업"},{name:"니콜",rarity:2,group:"볼칸 중공업"},{name:"벨",rarity:2,group:"볼칸 중공업"},{name:"나모",rarity:2,group:"찰스 브리게이드"},{name:"올리버",rarity:3,group:"찰스 브리게이드"},{name:"오지에",rarity:3,group:"찰스 브리게이드"},{name:"람다",rarity:3,group:"찰스 브리게이드"},{name:"캐롤",rarity:2,group:"찰스 브리게이드"},{name:"모지",rarity:3,group:"찰스 브리게이드"},{name:"란",rarity:3,group:"찰스 브리게이드"},{name:"하쿠라",rarity:2,group:"타츠우미 농축산"},{name:"호리키",rarity:3,group:"타츠우미 농축산"},{name:"모로에",rarity:3,group:"킷츠가와"},{name:"하쿠",rarity:3,group:"킷츠가와"},{name:"간류",rarity:3,group:"천진개발공사"},{name:"라울",rarity:3,group:"테일게이트 주식회사"},{name:"반타",rarity:2,group:"테일게이트 주식회사"},{name:"모리어티",rarity:3,group:"터미널15"},{name:"미셸",rarity:2,group:"터미널15"},{name:"카산드라",rarity:2,group:"터미널15"},{name:"알리스터",rarity:3,group:"터미널15"},{name:"테리",rarity:2,group:"듀마 엔진"},{name:"루비",rarity:2,group:"제네시스 이니셔티브"},{name:"루퍼트",rarity:3,group:"제네시스 이니셔티브"},{name:"버질",rarity:3,group:"제네시스 이니셔티브"},{name:"푸름OS",rarity:3,group:"레인 전자"},{name:"공주",rarity:3,group:"66구역"},{name:"안드레이",rarity:3,group:"66구역"},{name:"드미트리",rarity:3,group:"66구역"},{name:"안나",rarity:2,group:"66구역"}
+{name:"발렌티나",rarity:3,group:"N.O.D."},
+{name:"할",rarity:1,group:"N.O.D."},
+{name:"올가",rarity:1,group:"N.O.D."},
+{name:"도로시",rarity:1,group:"N.O.D."},
+{name:"백연",rarity:1,group:"N.O.D."},
+{name:"쿠로세",rarity:1,group:"N.O.D."},
+{name:"재클린",rarity:1,group:"N.O.D."},
+{name:"유나",rarity:1,group:"N.O.D."},
+{name:"비아트리스",rarity:1,group:"N.O.D."},
+{name:"오웬",rarity:1,group:"N.O.D."},
+{name:"빈센트",rarity:2,group:"N.O.D."},
+{name:"크리스틴",rarity:2,group:"N.O.D."},
+{name:"유진",rarity:3,group:"N.O.D."},
+{name:"유란",rarity:3,group:"N.O.D."},
+{name:"세샤",rarity:3,group:"N.O.D."},
+{name:"메이",rarity:3,group:"N.O.D."},
+{name:"아이작",rarity:2,group:"N.O.D."},
+{name:"홍포",rarity:2,group:"흑월상회"},
+{name:"항",rarity:3,group:"흑월상회"},
+{name:"호레이쇼",rarity:3,group:"듀마 엔진"},
+{name:"아토스",rarity:3,group:"듀마 엔진"},
+{name:"루다",rarity:3,group:"서천 바이오 제약"},
+{name:"가람",rarity:2,group:"서천 바이오 제약"},
+{name:"윤 진사",rarity:3,group:"서천 바이오 제약"},
+{name:"진",rarity:3,group:"서천 바이오 제약"},
+{name:"리",rarity:2,group:"서천 바이오 제약"},
+{name:"요제프",rarity:3,group:"자오선 이상현상 관리국"},
+{name:"티토",rarity:3,group:"자오선 이상현상 관리국"},
+{name:"제니퍼",rarity:2,group:"자오선 이상현상 관리국"},
+{name:"로렌츠",rarity:2,group:"아스트론 학파 연구지구"},
+{name:"가온",rarity:3,group:"아스트론 학파 연구지구"},
+{name:"아이린",rarity:3,group:"아스트론 학파 연구지구"},
+{name:"베르너",rarity:2,group:"아스트론 학파 연구지구"},
+{name:"노딘",rarity:3,group:"아스트론 학파 연구지구"},
+{name:"루핀",rarity:3,group:"볼칸 중공업"},
+{name:"요루",rarity:3,group:"볼칸 중공업"},
+{name:"헤더스",rarity:2,group:"볼칸 중공업"},
+{name:"마리",rarity:3,group:"아스트론 학파 연구지구"},
+{name:"니콜라",rarity:2,group:"아스트론 학파 연구지구"},
+{name:"프리츠",rarity:2,group:"아스트론 학파 연구지구"},
+{name:"미라이",rarity:3,group:"볼칸 중공업"},
+{name:"페이",rarity:3,group:"볼칸 중공업"},
+{name:"니콜",rarity:2,group:"볼칸 중공업"},
+{name:"벨",rarity:2,group:"볼칸 중공업"},
+{name:"나모",rarity:2,group:"찰스 브리게이드"},
+{name:"올리버",rarity:3,group:"찰스 브리게이드"},
+{name:"오지에",rarity:3,group:"찰스 브리게이드"},
+{name:"람다",rarity:3,group:"찰스 브리게이드"},
+{name:"캐롤",rarity:2,group:"찰스 브리게이드"},
+{name:"모지",rarity:3,group:"찰스 브리게이드"},
+{name:"란",rarity:3,group:"찰스 브리게이드"},
+{name:"하쿠라",rarity:2,group:"타츠우미 농축산"},
+{name:"호리키",rarity:3,group:"타츠우미 농축산"},
+{name:"모로에",rarity:3,group:"킷츠가와"},
+{name:"하쿠",rarity:3,group:"킷츠가와"},
+{name:"간류",rarity:3,group:"천진개발공사"},
+{name:"라울",rarity:3,group:"테일게이트 주식회사"},
+{name:"반타",rarity:2,group:"테일게이트 주식회사"},
+{name:"모리어티",rarity:3,group:"터미널15"},
+{name:"미셸",rarity:2,group:"터미널15"},
+{name:"카산드라",rarity:2,group:"터미널15"},
+{name:"알리스터",rarity:3,group:"터미널15"},
+{name:"테리",rarity:2,group:"듀마 엔진"},
+{name:"루비",rarity:2,group:"제네시스 이니셔티브"},
+{name:"루퍼트",rarity:3,group:"제네시스 이니셔티브"},
+{name:"버질",rarity:3,group:"제네시스 이니셔티브"},
+{name:"푸름OS",rarity:3,group:"레인 전자"},
+{name:"공주",rarity:3,group:"66구역"},
+{name:"안드레이",rarity:3,group:"66구역"},
+{name:"드미트리",rarity:3,group:"66구역"},
+{name:"안나",rarity:2,group:"66구역"}
 ];
 
-const INITIAL_CHARACTER_NAMES=DB.filter(c=>c.rarity===1).map(c=>c.name);
+const INITIAL_CHARACTER_NAMES=
+  DB
+    .filter(c=>c.rarity===1)
+    .map(c=>c.name);
+
+/* =========================================================
+   LENS DB
+========================================================= */
 
 const LENS_DB=[
-{id:"lens_hal_1",parent:"할",name:"카인 부대 대원 :: 할",rarity:3},{id:"lens_hal_2",parent:"할",name:"서천 경맥 금군 :: 할",rarity:3},{id:"lens_hal_3",parent:"할",name:"킷츠가와 가문 :: 할",rarity:3},
-{id:"lens_olga_1",parent:"올가",name:"말레우스 말레피카룸 시연품 :: 올가",rarity:3},{id:"lens_olga_2",parent:"올가",name:"심포지엄 일반 연구원 :: 올가",rarity:3},
-{id:"lens_dorothy_1",parent:"도로시",name:"킷츠가와 사병 :: 도로시",rarity:3},{id:"lens_dorothy_2",parent:"도로시",name:"타츠우미 농축산 요코메 :: 도로시",rarity:3},{id:"lens_dorothy_3",parent:"도로시",name:"모이라이 & 스트링스 LLD 어소시에이트 :: 도로시",rarity:3},
-{id:"lens_baekyeon_1",parent:"백연",name:"조석 사무소 대원 :: 백연",rarity:3},{id:"lens_baekyeon_2",parent:"백연",name:"킷츠가와 가문 :: 백연",rarity:3},{id:"lens_baekyeon_3",parent:"백연",name:"테일게이트 주식회사 랑데뷰 요원 :: 백연",rarity:3},
-{id:"lens_kurose_1",parent:"쿠로세",name:"심포지엄 일반 연구원 :: 쿠로세",rarity:3},{id:"lens_kurose_2",parent:"쿠로세",name:"알론소 패밀리 솔저 :: 쿠로세",rarity:3},{id:"lens_kurose_3",parent:"쿠로세",name:"석영 기사단 :: 쿠로세",rarity:3},
-{id:"lens_jacqueline_1",parent:"재클린",name:"에테르사 통상 요원 :: 재클린",rarity:3},{id:"lens_jacqueline_2",parent:"재클린",name:"미라다 S.A. 작살잡이 :: 재클린",rarity:3},{id:"lens_jacqueline_3",parent:"재클린",name:"듀마 엔진 용병 :: 재클린",rarity:3},
-{id:"lens_yuna_1",parent:"유나",name:"조석 사무소 대표 :: 유나",rarity:3},{id:"lens_yuna_2",parent:"유나",name:"자오선 현장 연구원 :: 유나",rarity:3},{id:"lens_yuna_3",parent:"유나",name:"석영 기사단 :: 유나",rarity:3},
-{id:"lens_beatrice_1",parent:"비아트리스",name:"N.O.D. 보조작전팀 대원 :: 비아트리스",rarity:3},{id:"lens_beatrice_2",parent:"비아트리스",name:"테트라포드 제3호 함장 :: 비아트리스",rarity:3},
-{id:"lens_owen_1",parent:"오웬",name:"제네시스 이니셔티브 중품 기사 :: 오웬",rarity:3},{id:"lens_owen_2",parent:"오웬",name:"찰스 브리게이드 보안청 대원 :: 오웬",rarity:3},{id:"lens_owen_3",parent:"오웬",name:"터미널15  :: 오웬",rarity:3}
+{id:"lens_hal_1",parent:"할",name:"카인 부대 대원 :: 할",rarity:3},
+{id:"lens_hal_2",parent:"할",name:"서천 경맥 금군 :: 할",rarity:3},
+{id:"lens_hal_3",parent:"할",name:"킷츠가와 가문 :: 할",rarity:3},
+
+{id:"lens_olga_1",parent:"올가",name:"말레우스 말레피카룸 시연품 :: 올가",rarity:3},
+{id:"lens_olga_2",parent:"올가",name:"심포지엄 일반 연구원 :: 올가",rarity:3},
+
+{id:"lens_dorothy_1",parent:"도로시",name:"킷츠가와 사병 :: 도로시",rarity:3},
+{id:"lens_dorothy_2",parent:"도로시",name:"타츠우미 농축산 요코메 :: 도로시",rarity:3},
+{id:"lens_dorothy_3",parent:"도로시",name:"모이라이 & 스트링스 LLD 어소시에이트 :: 도로시",rarity:3},
+
+{id:"lens_baekyeon_1",parent:"백연",name:"조석 사무소 대원 :: 백연",rarity:3},
+{id:"lens_baekyeon_2",parent:"백연",name:"킷츠가와 가문 :: 백연",rarity:3},
+{id:"lens_baekyeon_3",parent:"백연",name:"테일게이트 주식회사 랑데뷰 요원 :: 백연",rarity:3},
+
+{id:"lens_kurose_1",parent:"쿠로세",name:"심포지엄 일반 연구원 :: 쿠로세",rarity:3},
+{id:"lens_kurose_2",parent:"쿠로세",name:"알론소 패밀리 솔저 :: 쿠로세",rarity:3},
+{id:"lens_kurose_3",parent:"쿠로세",name:"석영 기사단 :: 쿠로세",rarity:3},
+
+{id:"lens_jacqueline_1",parent:"재클린",name:"에테르사 통상 요원 :: 재클린",rarity:3},
+{id:"lens_jacqueline_2",parent:"재클린",name:"미라다 S.A. 작살잡이 :: 재클린",rarity:3},
+{id:"lens_jacqueline_3",parent:"재클린",name:"듀마 엔진 용병 :: 재클린",rarity:3},
+
+{id:"lens_yuna_1",parent:"유나",name:"조석 사무소 대표 :: 유나",rarity:3},
+{id:"lens_yuna_2",parent:"유나",name:"자오선 현장 연구원 :: 유나",rarity:3},
+{id:"lens_yuna_3",parent:"유나",name:"석영 기사단 :: 유나",rarity:3},
+
+{id:"lens_beatrice_1",parent:"비아트리스",name:"N.O.D. 보조작전팀 대원 :: 비아트리스",rarity:3},
+{id:"lens_beatrice_2",parent:"비아트리스",name:"테트라포드 제3호 함장 :: 비아트리스",rarity:3},
+
+{id:"lens_owen_1",parent:"오웬",name:"제네시스 이니셔티브 중품 기사 :: 오웬",rarity:3},
+{id:"lens_owen_2",parent:"오웬",name:"찰스 브리게이드 보안청 대원 :: 오웬",rarity:3},
+{id:"lens_owen_3",parent:"오웬",name:"터미널15 :: 오웬",rarity:3}
 ];
 
+const LENS_PARENT_NAMES=[
+  ...new Set(
+    LENS_DB.map(l=>l.parent)
+  )
+];
+
+const VALID_CHARACTER_NAMES=
+  new Set(DB.map(c=>c.name));
+
+const VALID_LENS_IDS=
+  new Set(LENS_DB.map(l=>l.id));
+
+/* =========================================================
+   BANNERS
+========================================================= */
+
 const BANNERS={
- belleEpoque:{id:"belleEpoque",type:"집중 헤드헌팅",title:"쌓아올리는 등불의 벨 에포크",short:"BELLE ÉPOQUE",subtitle:"등불의 시작과 함께한 인원들을 대상으로 한 집중 헤드헌팅.",pickups:[{type:"character",key:"발렌티나"},{type:"character",key:"크리스틴"}],pickupRate:.5},
- halLens:{id:"halLens",type:"섭동 집중 헤드헌팅",title:"사슬 너머의 갈래길",short:"HAL / 3 LENSES",subtitle:"할에게서 갈라져 나온 섭동 렌즈가 집중 등장합니다.",pickups:[{type:"lens",key:"lens_hal_1"},{type:"lens",key:"lens_hal_2"},{type:"lens",key:"lens_hal_3"}],pickupRate:.5},
- standard:{id:"standard",type:"통상 헤드헌팅",title:"통상 헤드헌팅",short:"STANDARD",subtitle:"특정 인원 또는 섭동 렌즈에 대한 확률 보정이 적용되지 않습니다.",pickups:[],pickupRate:0}
+
+  belleEpoque:{
+    id:"belleEpoque",
+    type:"집중 헤드헌팅",
+    title:"쌓아올리는 등불의 벨 에포크",
+    short:"BELLE ÉPOQUE",
+    subtitle:"등불의 시작과 함께한 인원들을 대상으로 한 집중 헤드헌팅.",
+    pickups:[
+      {type:"character",key:"발렌티나"},
+      {type:"character",key:"크리스틴"}
+    ],
+    pickupRate:.5
+  },
+
+  halLens:{
+    id:"halLens",
+    type:"섭동 집중 헤드헌팅",
+    title:"사슬 너머의 갈래길",
+    short:"HAL / 3 LENSES",
+    subtitle:"할에게서 갈라져 나온 섭동 렌즈가 집중 등장합니다.",
+    pickups:[
+      {type:"lens",key:"lens_hal_1"},
+      {type:"lens",key:"lens_hal_2"},
+      {type:"lens",key:"lens_hal_3"}
+    ],
+    pickupRate:.5
+  },
+
+  standard:{
+    id:"standard",
+    type:"통상 헤드헌팅",
+    title:"통상 헤드헌팅",
+    short:"STANDARD",
+    subtitle:"특정 인원 또는 섭동 렌즈에 대한 확률 보정이 적용되지 않습니다.",
+    pickups:[],
+    pickupRate:0
+  }
+
 };
 
+/* =========================================================
+   STORAGE
+========================================================= */
+
 const STORE=(()=>{
- const memory={};
- try{
-  const testKey="__nod_storage_test__";
-  window.localStorage.setItem(testKey,"1");
-  window.localStorage.removeItem(testKey);
-  return window.localStorage;
- }catch(e){
-  console.warn("Persistent storage unavailable; using session memory.",e);
-  return {
-   getItem:key=>Object.prototype.hasOwnProperty.call(memory,key)?memory[key]:null,
-   setItem:(key,value)=>{memory[key]=String(value)},
-   removeItem:key=>{delete memory[key]}
-  };
- }
+
+  const memory={};
+
+  try{
+
+    const testKey="__nod_storage_test__";
+
+    window.localStorage.setItem(testKey,"1");
+    window.localStorage.removeItem(testKey);
+
+    return window.localStorage;
+
+  }catch(e){
+
+    console.warn(
+      "Persistent storage unavailable; using session memory.",
+      e
+    );
+
+    return{
+      getItem:key=>
+        Object.prototype.hasOwnProperty.call(memory,key)
+          ?memory[key]
+          :null,
+
+      setItem:(key,value)=>{
+        memory[key]=String(value)
+      },
+
+      removeItem:key=>{
+        delete memory[key]
+      }
+    };
+
+  }
+
 })();
 
-function loadArray(key){try{const v=JSON.parse(STORE.getItem(key));return Array.isArray(v)?v:[]}catch(e){return[]}}
-let totalCount=parseInt(STORE.getItem("totalCount"))||0;
-let collection=[...new Set([...INITIAL_CHARACTER_NAMES,...loadArray("collection")])];
-let lensCollection=loadArray("lensCollection");
-let glow=parseInt(STORE.getItem("glow"))||0;
-let history=loadArray("history");
-let currentBannerId=STORE.getItem("currentBannerId")||"belleEpoque";
-if(!BANNERS[currentBannerId])currentBannerId="belleEpoque";
+function loadArray(key){
+
+  try{
+
+    const value=
+      JSON.parse(
+        STORE.getItem(key)
+      );
+
+    return Array.isArray(value)
+      ?value
+      :[];
+
+  }catch(e){
+
+    return[];
+
+  }
+
+}
+
+function sanitizeCharacterCollection(list){
+
+  const validStored=
+    list.filter(
+      name=>
+        VALID_CHARACTER_NAMES.has(name)
+    );
+
+  return[
+    ...new Set([
+      ...INITIAL_CHARACTER_NAMES,
+      ...validStored
+    ])
+  ];
+
+}
+
+function sanitizeLensCollection(list){
+
+  return[
+    ...new Set(
+      list.filter(
+        id=>
+          VALID_LENS_IDS.has(id)
+      )
+    )
+  ];
+
+}
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let totalCount=
+  parseInt(
+    STORE.getItem("totalCount")
+  )||0;
+
+let collection=
+  sanitizeCharacterCollection(
+    loadArray("collection")
+  );
+
+let lensCollection=
+  sanitizeLensCollection(
+    loadArray("lensCollection")
+  );
+
+let glow=
+  parseInt(
+    STORE.getItem("glow")
+  )||0;
+
+let history=
+  loadArray("history");
+
+let currentBannerId=
+  STORE.getItem("currentBannerId")
+  ||"belleEpoque";
+
+if(!BANNERS[currentBannerId]){
+  currentBannerId="belleEpoque";
+}
+
 let sortMode="grade";
 let isRolling=false;
 
-function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
-function getCharacter(name){return DB.find(c=>c.name===name)}
-function getLens(id){return LENS_DB.find(l=>l.id===id)}
-function getGradeText(r){return r===3?"LUMEN ★★★":r===2?"ULTRA ★★":"INFRA ★"}
-function getClass(r){return r===3?"lumen":r===2?"ultra":"infra"}
-function rollRarity(){const r=Math.random();if(r<.03)return 3;if(r<.23)return 2;return 1}
-function saveData(){collection=[...new Set([...INITIAL_CHARACTER_NAMES,...collection])];STORE.setItem("totalCount",totalCount);STORE.setItem("collection",JSON.stringify(collection));STORE.setItem("lensCollection",JSON.stringify(lensCollection));STORE.setItem("glow",glow)}
+/* =========================================================
+   AUDIO
+========================================================= */
 
-function showPage(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===`page-${page}`));document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='collection')renderCollection();if(page==='lenses')renderLensCollection();if(page==='exchange')renderExchange();if(page==='history')renderLog()}
+function playShutterSound(rare=false){
 
-function resolvePickup(p){if(p.type==='character'){const c=getCharacter(p.key);return c?{type:'character',key:c.name,rarity:c.rarity,item:c}:null}if(p.type==='lens'){const l=getLens(p.key);return l?{type:'lens',key:l.id,rarity:3,item:l}:null}return null}
-function createCharacterResult(c,isPickup=false){return{type:'character',name:c.name,rarity:c.rarity,group:c.group,isPickup}}
-function createLensResult(l,isPickup=false){return{type:'lens',id:l.id,name:l.name,parent:l.parent,rarity:3,isPickup}}
+  const audio=
+    document.getElementById(
+      rare
+        ?"shutterRare"
+        :"shutterNormal"
+    );
 
-function renderBannerList(){const area=document.getElementById('bannerList');area.innerHTML=Object.values(BANNERS).map(b=>`<button type="button" class="bannerCard ${b.id===currentBannerId?'active':''}" data-banner-id="${b.id}"><div class="bannerType">${b.type}</div><div class="bannerName">${b.title}</div><div class="bannerMini">${b.short}</div></button>`).join('')}
-function selectBanner(id){if(isRolling||!BANNERS[id])return;currentBannerId=id;STORE.setItem('currentBannerId',id);renderBannerList();updateBannerUI();document.getElementById('result').innerHTML='<div class="resultEmpty">필름 매거진이 교체되었습니다.<br>새 노출을 시작하십시오.</div>';document.getElementById('resultCount').textContent='MAGAZINE CHANGED'}
-function updateBannerUI(){const b=BANNERS[currentBannerId];document.getElementById('bannerType').textContent=b.type.toUpperCase();document.getElementById('bannerTitle').textContent=b.title;document.getElementById('bannerSubtitle').textContent=b.subtitle;document.getElementById('currentBannerShort').textContent=b.short;const area=document.getElementById('pickupInfo');if(!b.pickups.length){area.innerHTML='<span class="pickupChip">NO RATE-UP / STANDARD POOL</span>';return}area.innerHTML=b.pickups.map(p=>{const r=resolvePickup(p);if(!r)return'';if(r.type==='lens')return`<span class="pickupChip lens">◇ ${r.item.name}</span>`;return`<span class="pickupChip ${getClass(r.item.rarity)}">${getGradeText(r.item.rarity)} · ${r.item.name}</span>`}).join('')+`<span class="pickupChip">RATE-UP ${Math.round(b.pickupRate*100)}%</span>`}
+  if(!audio)
+    return;
 
-function rollResultByRarity(rarity){const b=BANNERS[currentBannerId];const pickups=b.pickups.map(resolvePickup).filter(p=>p&&p.rarity===rarity);if(pickups.length&&Math.random()<b.pickupRate){const p=pickups[Math.floor(Math.random()*pickups.length)];return p.type==='character'?createCharacterResult(p.item,true):createLensResult(p.item,true)}const excludedCharacters=new Set(pickups.filter(p=>p.type==='character').map(p=>p.key));const excludedLenses=new Set(pickups.filter(p=>p.type==='lens').map(p=>p.key));let charPool=DB.filter(c=>c.rarity===rarity&&!excludedCharacters.has(c.name)).map(c=>createCharacterResult(c,false));if(rarity===3){let lensPool=LENS_DB.filter(l=>!excludedLenses.has(l.id)).map(l=>createLensResult(l,false));let pool=[...charPool,...lensPool];if(!pool.length)pool=[...DB.filter(c=>c.rarity===3).map(c=>createCharacterResult(c,false)),...LENS_DB.map(l=>createLensResult(l,false))];return pool[Math.floor(Math.random()*pool.length)]}if(!charPool.length)charPool=DB.filter(c=>c.rarity===rarity).map(c=>createCharacterResult(c,false));return charPool[Math.floor(Math.random()*charPool.length)]}
+  try{
 
-async function pull(times){if(isRolling)return;isRolling=true;document.getElementById('btn1').disabled=true;document.getElementById('btn10').disabled=true;const flash=document.getElementById('flash');flash.classList.remove('fire');void flash.offsetWidth;flash.classList.add('fire');let results=[];for(let i=0;i<times;i++)results.push(rollResultByRarity(rollRarity()));if(times===10&&!results.some(r=>r.rarity>=2))results[9]=rollResultByRarity(2);const area=document.getElementById('result');area.innerHTML='';document.getElementById('resultCount').textContent=`${times} FRAME${times>1?'S':''}`;for(const r of results){totalCount++;glow++;let isNew=false;if(r.type==='lens'){isNew=!lensCollection.includes(r.id);if(isNew)lensCollection.push(r.id)}else{isNew=!collection.includes(r.name);if(isNew)collection.push(r.name)}const card=document.createElement('div');if(r.type==='lens'){card.className='resultCard lensResult';card.innerHTML=`<div class="resultGrade lens">PERTURBATION LENS</div><div class="resultName lens">◇ ${r.name}</div><div class="resultMeta">PARENT / ${r.parent}</div><div class="resultFlags">${r.isPickup?'<span class="flag">PICK UP</span>':''}${isNew?'<span class="flag new">NEW</span>':''}</div>`}else{card.className='resultCard';card.innerHTML=`<div class="resultGrade ${getClass(r.rarity)}">${getGradeText(r.rarity)}</div><div class="resultName ${getClass(r.rarity)}">${r.name}</div><div class="resultMeta">${r.group}</div><div class="resultFlags">${r.isPickup?'<span class="flag">PICK UP</span>':''}${isNew?'<span class="flag new">NEW</span>':''}</div>`}area.appendChild(card);await sleep(45);if(isNew){card.classList.add(r.type==='lens'?'newLensEffect':'newRareEffect');await sleep(140)}}saveHistory(times,results);saveData();updateCounters();renderCollection();renderLensCollection();isRolling=false;document.getElementById('btn1').disabled=false;document.getElementById('btn10').disabled=false}
+    audio.pause();
+    audio.currentTime=0;
 
-function saveHistory(times,results){const now=new Date();const ds=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');history.unshift({date:ds,count:times,bannerId:currentBannerId,bannerTitle:BANNERS[currentBannerId].title,results});if(history.length>200)history=history.slice(0,200);STORE.setItem('history',JSON.stringify(history))}
+    audio.volume=
+      rare
+        ?.72
+        :.62;
 
-function updateCounters(){document.getElementById('totalCountTop').textContent=totalCount;document.getElementById('glowCountTop').textContent=glow;document.getElementById('ownedCount').textContent=`${collection.length}/${DB.length}`;document.getElementById('lensCount').textContent=`${lensCollection.length}/${LENS_DB.length}`;document.getElementById('lensProgress').textContent=`${lensCollection.length} / ${LENS_DB.length}`}
+    const result=
+      audio.play();
 
-function setSort(mode){sortMode=mode;document.querySelectorAll('[data-sort]').forEach(b=>b.classList.toggle('active',b.dataset.sort===mode));renderCollection()}
-function renderCharacterCard(c,owned){const lenses=LENS_DB.filter(l=>l.parent===c.name&&lensCollection.includes(l.id));return`<div class="charCard ${owned?'':'dimmed'}"><div class="resultGrade ${getClass(c.rarity)}">${getGradeText(c.rarity)}</div><div class="charName ${getClass(c.rarity)}">${c.name}</div><div class="charGroup">${c.group}</div>${lenses.length?`<div class="lensChildren">${lenses.map(l=>`<div class="lensChild">◇ ${l.name}</div>`).join('')}</div>`:''}</div>`}
-function renderCollection(){const area=document.getElementById('collectionArea');const ownedSet=new Set(collection);let list=sortMode==='all'?[...DB]:DB.filter(c=>ownedSet.has(c.name));if(sortMode==='name')list.sort((a,b)=>a.name.localeCompare(b.name,'ko'));else if(sortMode==='group')list.sort((a,b)=>a.group.localeCompare(b.group,'ko')||a.name.localeCompare(b.name,'ko'));else list.sort((a,b)=>b.rarity-a.rarity||a.name.localeCompare(b.name,'ko'));let html='';let group='';for(const c of list){if(sortMode==='group'&&c.group!==group){group=c.group;html+=`<div class="groupHeader">${group}</div>`}html+=renderCharacterCard(c,ownedSet.has(c.name))}area.innerHTML=html||'<div class="note">보유 인원 없음</div>'}
+    if(
+      result
+      &&typeof result.catch==="function"
+    ){
+      result.catch(()=>{});
+    }
 
-function renderLensCollection(){const area=document.getElementById('lensCollectionArea');let html='';for(const parent of INITIAL_CHARACTER_NAMES){const lenses=LENS_DB.filter(l=>l.parent===parent);const owned=lenses.filter(l=>lensCollection.includes(l.id)).length;html+=`<div class="lensGroup"><div class="lensGroupHead"><span class="lensGroupName">${parent}</span><span class="lensGroupCount">${owned}/3</span></div><div class="lensSlots">${lenses.map(l=>{const has=lensCollection.includes(l.id);return`<div class="lensSlot ${has?'':'missing'}">${has?'◇ '+l.name:'◇ UNDEVELOPED NEGATIVE'}<div class="slotParent">${parent} / FRAME ${l.id.split('_').pop()}</div></div>`}).join('')}</div></div>`}area.innerHTML=html;document.getElementById('lensProgress').textContent=`${lensCollection.length} / ${LENS_DB.length}`}
+  }catch(e){}
+
+}
+
+
+/*
+  결과음 오디오 풀.
+
+  같은 <audio> 하나를 매번 currentTime=0으로 돌리면
+  앞의 소리가 잘리므로 여러 개를 준비해서 순환 사용.
+*/
+
+const RESULT_AUDIO_POOL_SIZE=6;
+
+const resultAudioPool=
+  Array.from(
+    {length:RESULT_AUDIO_POOL_SIZE},
+    ()=>{
+
+      const audio=
+        new Audio(
+          "audio/result-reveal.mp3"
+        );
+
+      audio.preload="auto";
+      audio.volume=.42;
+
+      return audio;
+
+    }
+  );
+
+let resultAudioIndex=0;
+
+
+function playResultRevealSound(){
+
+  try{
+
+    const audio=
+      resultAudioPool[
+        resultAudioIndex
+      ];
+
+    resultAudioIndex=
+      (
+        resultAudioIndex+1
+      )
+      %RESULT_AUDIO_POOL_SIZE;
+
+    audio.pause();
+    audio.currentTime=0;
+
+    const playPromise=
+      audio.play();
+
+    if(
+      playPromise
+      &&typeof playPromise.catch==="function"
+    ){
+      playPromise.catch(()=>{});
+    }
+
+  }catch(e){}
+
+}
+
+
+/*
+  iOS 등에서 async 루프 안의 오디오 재생이 막히는 일을 줄이기 위해
+  사용자가 셔터 버튼을 누르는 순간 결과 오디오도 한 번 활성화해 둔다.
+*/
+
+function unlockResultAudio(){
+
+  const audio=
+    resultAudioPool[0];
+
+  if(!audio)
+    return;
+
+  try{
+
+    const oldVolume=
+      audio.volume;
+
+    audio.volume=0;
+    audio.currentTime=0;
+
+    const p=
+      audio.play();
+
+    if(
+      p
+      &&typeof p.then==="function"
+    ){
+
+      p.then(()=>{
+
+        audio.pause();
+        audio.currentTime=0;
+        audio.volume=oldVolume;
+
+      }).catch(()=>{
+
+        audio.volume=oldVolume;
+
+      });
+
+    }else{
+
+      audio.pause();
+      audio.currentTime=0;
+      audio.volume=oldVolume;
+
+    }
+
+  }catch(e){}
+
+}
+
+/* =========================================================
+   DECORATIVE READOUTS
+========================================================= */
+
+const DECO_A_TEXTS=[
+  "FRAME SYNC / 446-A",
+  "NEGATIVE FEED / READY",
+  "SHUTTER BUS / STANDBY",
+  "IMAGE PLANE / LOCKED",
+  "EXPOSURE TABLE / LIVE"
+];
+
+const DECO_B_TEXTS=[
+  "OPTICAL PATH / NOMINAL",
+  "PERTURBATION / 0.004",
+  "LUMEN GATE / ARMED",
+  "DARKROOM CACHE / READY",
+  "PARALLAX / CORRECTED"
+];
+
+const DECO_C_TEXTS=[
+  "STABLE",
+  "SYNCHRONIZED",
+  "NOMINAL",
+  "CONNECTED",
+  "CALIBRATED"
+];
+
+function replaceDecoText(
+  element,
+  text
+){
+
+  if(!element)
+    return;
+
+  element.classList.add(
+    "changing"
+  );
+
+  setTimeout(()=>{
+
+    element.textContent=text;
+
+    element.classList.remove(
+      "changing"
+    );
+
+  },180);
+
+}
+
+function startDecorativeReadouts(){
+
+  const a=
+    document.getElementById("decoA");
+
+  const b=
+    document.getElementById("decoB");
+
+  const c=
+    document.getElementById("decoC");
+
+  let ai=0;
+  let bi=0;
+  let ci=0;
+
+  setInterval(()=>{
+
+    ai=
+      (ai+1)
+      %DECO_A_TEXTS.length;
+
+    replaceDecoText(
+      a,
+      DECO_A_TEXTS[ai]
+    );
+
+  },4700);
+
+  setInterval(()=>{
+
+    bi=
+      (bi+1)
+      %DECO_B_TEXTS.length;
+
+    replaceDecoText(
+      b,
+      DECO_B_TEXTS[bi]
+    );
+
+  },6100);
+
+  setInterval(()=>{
+
+    ci=
+      (ci+1)
+      %DECO_C_TEXTS.length;
+
+    if(c){
+
+      c.style.opacity=.18;
+
+      setTimeout(()=>{
+
+        c.textContent=
+          DECO_C_TEXTS[ci];
+
+        c.style.opacity="";
+
+      },170);
+
+    }
+
+  },8200);
+
+}
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function sleep(ms){
+
+  return new Promise(
+    resolve=>
+      setTimeout(resolve,ms)
+  );
+
+}
+
+function getCharacter(name){
+
+  return DB.find(
+    c=>c.name===name
+  );
+
+}
+
+function getLens(id){
+
+  return LENS_DB.find(
+    l=>l.id===id
+  );
+
+}
+
+function getGradeText(r){
+
+  return r===3
+    ?"LUMEN ★★★"
+    :r===2
+      ?"ULTRA ★★"
+      :"INFRA ★";
+
+}
+
+function getClass(r){
+
+  return r===3
+    ?"lumen"
+    :r===2
+      ?"ultra"
+      :"infra";
+
+}
+
+function rollRarity(){
+
+  const r=
+    Math.random();
+
+  if(r<.03)
+    return 3;
+
+  if(r<.23)
+    return 2;
+
+  return 1;
+
+}
+
+function saveData(){
+
+  collection=
+    sanitizeCharacterCollection(
+      collection
+    );
+
+  lensCollection=
+    sanitizeLensCollection(
+      lensCollection
+    );
+
+  STORE.setItem(
+    "totalCount",
+    totalCount
+  );
+
+  STORE.setItem(
+    "collection",
+    JSON.stringify(collection)
+  );
+
+  STORE.setItem(
+    "lensCollection",
+    JSON.stringify(lensCollection)
+  );
+
+  STORE.setItem(
+    "glow",
+    glow
+  );
+
+}
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+function showPage(page){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(
+      p=>
+        p.classList.toggle(
+          "active",
+          p.id===`page-${page}`
+        )
+    );
+
+  document
+    .querySelectorAll(".navBtn")
+    .forEach(
+      b=>
+        b.classList.toggle(
+          "active",
+          b.dataset.page===page
+        )
+    );
+
+  if(page==="collection")
+    renderCollection();
+
+  if(page==="lenses")
+    renderLensCollection();
+
+  if(page==="exchange")
+    renderExchange();
+
+  if(page==="history")
+    renderLog();
+
+}
+
+/* =========================================================
+   PICKUP
+========================================================= */
+
+function resolvePickup(p){
+
+  if(p.type==="character"){
+
+    const c=
+      getCharacter(p.key);
+
+    return c
+      ?{
+        type:"character",
+        key:c.name,
+        rarity:c.rarity,
+        item:c
+      }
+      :null;
+
+  }
+
+  if(p.type==="lens"){
+
+    const l=
+      getLens(p.key);
+
+    return l
+      ?{
+        type:"lens",
+        key:l.id,
+        rarity:3,
+        item:l
+      }
+      :null;
+
+  }
+
+  return null;
+
+}
+
+function createCharacterResult(
+  c,
+  isPickup=false
+){
+
+  return{
+    type:"character",
+    name:c.name,
+    rarity:c.rarity,
+    group:c.group,
+    isPickup
+  };
+
+}
+
+function createLensResult(
+  l,
+  isPickup=false
+){
+
+  return{
+    type:"lens",
+    id:l.id,
+    name:l.name,
+    parent:l.parent,
+    rarity:3,
+    isPickup
+  };
+
+}
+
+/* =========================================================
+   BANNERS
+========================================================= */
+
+function renderBannerList(){
+
+  const area=
+    document.getElementById(
+      "bannerList"
+    );
+
+  area.innerHTML=
+    Object.values(BANNERS)
+      .map(
+        b=>`
+
+          <button
+            type="button"
+            class="bannerCard ${b.id===currentBannerId?"active":""}"
+            data-banner-id="${b.id}">
+
+            <div class="bannerType">
+              ${b.type}
+            </div>
+
+            <div class="bannerName">
+              ${b.title}
+            </div>
+
+            <div class="bannerMini">
+              ${b.short}
+            </div>
+
+          </button>
+
+        `
+      )
+      .join("");
+
+}
+
+function selectBanner(id){
+
+  if(
+    isRolling
+    ||!BANNERS[id]
+  )
+    return;
+
+  currentBannerId=id;
+
+  STORE.setItem(
+    "currentBannerId",
+    id
+  );
+
+  renderBannerList();
+  updateBannerUI();
+
+  document.getElementById(
+    "result"
+  ).innerHTML=
+    `
+      <div class="resultEmpty">
+        필름 매거진이 교체되었습니다.<br>
+        새 노출을 시작하십시오.
+      </div>
+    `;
+
+  document.getElementById(
+    "resultCount"
+  ).textContent=
+    "MAGAZINE CHANGED";
+
+}
+
+function updateBannerUI(){
+
+  const b=
+    BANNERS[currentBannerId];
+
+  document.getElementById(
+    "bannerType"
+  ).textContent=
+    b.type.toUpperCase();
+
+  document.getElementById(
+    "bannerTitle"
+  ).textContent=
+    b.title;
+
+  document.getElementById(
+    "bannerSubtitle"
+  ).textContent=
+    b.subtitle;
+
+  document.getElementById(
+    "currentBannerShort"
+  ).textContent=
+    b.short;
+
+  const area=
+    document.getElementById(
+      "pickupInfo"
+    );
+
+  if(!b.pickups.length){
+
+    area.innerHTML=
+      `
+        <span class="pickupChip">
+          NO RATE-UP / STANDARD POOL
+        </span>
+      `;
+
+    return;
+
+  }
+
+  area.innerHTML=
+
+    b.pickups
+      .map(p=>{
+
+        const r=
+          resolvePickup(p);
+
+        if(!r)
+          return"";
+
+        if(r.type==="lens"){
+
+          return`
+            <span class="pickupChip lens">
+              ◇ ${r.item.name}
+            </span>
+          `;
+
+        }
+
+        return`
+          <span class="pickupChip ${getClass(r.item.rarity)}">
+            ${getGradeText(r.item.rarity)}
+            ·
+            ${r.item.name}
+          </span>
+        `;
+
+      })
+      .join("")
+
+    +
+
+    `
+      <span class="pickupChip">
+        RATE-UP ${Math.round(b.pickupRate*100)}%
+      </span>
+    `;
+
+}
+
+/* =========================================================
+   ROLL
+========================================================= */
+
+function rollResultByRarity(rarity){
+
+  const b=
+    BANNERS[currentBannerId];
+
+  const pickups=
+    b.pickups
+      .map(resolvePickup)
+      .filter(
+        p=>
+          p
+          &&p.rarity===rarity
+      );
+
+  if(
+    pickups.length
+    &&Math.random()<b.pickupRate
+  ){
+
+    const p=
+      pickups[
+        Math.floor(
+          Math.random()
+          *pickups.length
+        )
+      ];
+
+    return p.type==="character"
+      ?createCharacterResult(
+        p.item,
+        true
+      )
+      :createLensResult(
+        p.item,
+        true
+      );
+
+  }
+
+  const excludedCharacters=
+    new Set(
+      pickups
+        .filter(
+          p=>p.type==="character"
+        )
+        .map(
+          p=>p.key
+        )
+    );
+
+  const excludedLenses=
+    new Set(
+      pickups
+        .filter(
+          p=>p.type==="lens"
+        )
+        .map(
+          p=>p.key
+        )
+    );
+
+  let charPool=
+    DB
+      .filter(
+        c=>
+          c.rarity===rarity
+          &&!excludedCharacters.has(c.name)
+      )
+      .map(
+        c=>
+          createCharacterResult(
+            c,
+            false
+          )
+      );
+
+  if(rarity===3){
+
+    const lensPool=
+      LENS_DB
+        .filter(
+          l=>
+            !excludedLenses.has(l.id)
+        )
+        .map(
+          l=>
+            createLensResult(
+              l,
+              false
+            )
+        );
+
+    let pool=[
+      ...charPool,
+      ...lensPool
+    ];
+
+    if(!pool.length){
+
+      pool=[
+
+        ...DB
+          .filter(c=>c.rarity===3)
+          .map(
+            c=>
+              createCharacterResult(
+                c,
+                false
+              )
+          ),
+
+        ...LENS_DB
+          .map(
+            l=>
+              createLensResult(
+                l,
+                false
+              )
+          )
+
+      ];
+
+    }
+
+    return pool[
+      Math.floor(
+        Math.random()
+        *pool.length
+      )
+    ];
+
+  }
+
+  if(!charPool.length){
+
+    charPool=
+      DB
+        .filter(
+          c=>c.rarity===rarity
+        )
+        .map(
+          c=>
+            createCharacterResult(
+              c,
+              false
+            )
+        );
+
+  }
+
+  return charPool[
+    Math.floor(
+      Math.random()
+      *charPool.length
+    )
+  ];
+
+}
+
+/* =========================================================
+   PULL
+========================================================= */
+
+async function pull(times){
+
+  if(isRolling)
+    return;
+
+  isRolling=true;
+
+  document.getElementById(
+    "btn1"
+  ).disabled=true;
+
+  document.getElementById(
+    "btn10"
+  ).disabled=true;
+
+  /*
+    사용자 클릭 순간 오디오 활성화.
+  */
+  unlockResultAudio();
+
+  /*
+    결과를 먼저 전부 계산.
+  */
+
+  const results=[];
+
+  for(
+    let i=0;
+    i<times;
+    i++
+  ){
+
+    results.push(
+      rollResultByRarity(
+        rollRarity()
+      )
+    );
+
+  }
+
+  /*
+    10회 보장.
+  */
+
+  if(
+    times===10
+    &&!results.some(
+      r=>r.rarity>=2
+    )
+  ){
+
+    results[9]=
+      rollResultByRarity(2);
+
+  }
+
+  /*
+    LUMEN 또는 렌즈 존재 여부에 따라 셔터음 선택.
+  */
+
+  const hasRareResult=
+    results.some(
+      r=>
+        r.type==="lens"
+        ||r.rarity===3
+    );
+
+  playShutterSound(
+    hasRareResult
+  );
+
+  /*
+    플래시.
+  */
+
+  const flash=
+    document.getElementById(
+      "flash"
+    );
+
+  flash.classList.remove(
+    "fire"
+  );
+
+  void flash.offsetWidth;
+
+  flash.classList.add(
+    "fire"
+  );
+
+  const area=
+    document.getElementById(
+      "result"
+    );
+
+  area.innerHTML="";
+
+  document.getElementById(
+    "resultCount"
+  ).textContent=
+    `${times} FRAME${times>1?"S":""}`;
+
+  /*
+    셔터 플래시 직후 아주 짧게 텀.
+    찰칵 → 현상 시작 느낌.
+  */
+
+  await sleep(110);
+
+  for(const r of results){
+
+    totalCount++;
+    glow++;
+
+    let isNew=false;
+
+    if(r.type==="lens"){
+
+      isNew=
+        !lensCollection.includes(
+          r.id
+        );
+
+      if(isNew){
+
+        lensCollection.push(
+          r.id
+        );
+
+      }
+
+    }else{
+
+      isNew=
+        !collection.includes(
+          r.name
+        );
+
+      if(isNew){
+
+        collection.push(
+          r.name
+        );
+
+      }
+
+    }
+
+    const card=
+      document.createElement(
+        "div"
+      );
+
+    if(r.type==="lens"){
+
+      card.className=
+        "resultCard lensResult";
+
+      card.innerHTML=
+        `
+          <div class="resultGrade lens">
+            PERTURBATION LENS
+          </div>
+
+          <div class="resultName lens">
+            ◇ ${r.name}
+          </div>
+
+          <div class="resultMeta">
+            PARENT / ${r.parent}
+          </div>
+
+          <div class="resultFlags">
+
+            ${
+              r.isPickup
+                ?'<span class="flag">PICK UP</span>'
+                :""
+            }
+
+            ${
+              isNew
+                ?'<span class="flag new">NEW</span>'
+                :""
+            }
+
+          </div>
+        `;
+
+    }else{
+
+      card.className=
+        "resultCard";
+
+      card.innerHTML=
+        `
+          <div class="resultGrade ${getClass(r.rarity)}">
+            ${getGradeText(r.rarity)}
+          </div>
+
+          <div class="resultName ${getClass(r.rarity)}">
+            ${r.name}
+          </div>
+
+          <div class="resultMeta">
+            ${r.group}
+          </div>
+
+          <div class="resultFlags">
+
+            ${
+              r.isPickup
+                ?'<span class="flag">PICK UP</span>'
+                :""
+            }
+
+            ${
+              isNew
+                ?'<span class="flag new">NEW</span>'
+                :""
+            }
+
+          </div>
+        `;
+
+    }
+
+    /*
+      실제 패널이 나타나는 순간 결과음.
+    */
+
+    area.appendChild(card);
+
+    playResultRevealSound();
+
+    /*
+      패널 하나당 현상 간격.
+      너무 빨리 하면 10개가 한꺼번에 튀어나오는 느낌이라
+      약간 여유를 줌.
+    */
+
+    await sleep(105);
+
+    if(isNew){
+
+      card.classList.add(
+        r.type==="lens"
+          ?"newLensEffect"
+          :"newRareEffect"
+      );
+
+    }
+
+  }
+
+  saveHistory(
+    times,
+    results
+  );
+
+  saveData();
+
+  updateCounters();
+  renderCollection();
+  renderLensCollection();
+
+  isRolling=false;
+
+  document.getElementById(
+    "btn1"
+  ).disabled=false;
+
+  document.getElementById(
+    "btn10"
+  ).disabled=false;
+
+}
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function saveHistory(
+  times,
+  results
+){
+
+  const now=
+    new Date();
+
+  const ds=
+    now.getFullYear()
+    +"-"
+    +String(now.getMonth()+1).padStart(2,"0")
+    +"-"
+    +String(now.getDate()).padStart(2,"0")
+    +" "
+    +String(now.getHours()).padStart(2,"0")
+    +":"
+    +String(now.getMinutes()).padStart(2,"0");
+
+  history.unshift({
+    date:ds,
+    count:times,
+    bannerId:currentBannerId,
+    bannerTitle:BANNERS[currentBannerId].title,
+    results
+  });
+
+  if(history.length>200){
+
+    history=
+      history.slice(
+        0,
+        200
+      );
+
+  }
+
+  STORE.setItem(
+    "history",
+    JSON.stringify(history)
+  );
+
+}
+
+/* =========================================================
+   COUNTERS
+========================================================= */
+
+function updateCounters(){
+
+  document.getElementById(
+    "totalCountTop"
+  ).textContent=
+    totalCount;
+
+  document.getElementById(
+    "glowCountTop"
+  ).textContent=
+    glow;
+
+  document.getElementById(
+    "ownedCount"
+  ).textContent=
+    `${collection.length}/${DB.length}`;
+
+  document.getElementById(
+    "lensCount"
+  ).textContent=
+    `${lensCollection.length}/${LENS_DB.length}`;
+
+  document.getElementById(
+    "lensProgress"
+  ).textContent=
+    `${lensCollection.length} / ${LENS_DB.length}`;
+
+  const collectionNote=
+    document.getElementById(
+      "collectionNote"
+    );
+
+  if(collectionNote){
+
+    collectionNote.textContent=
+      `CONTACT SHEET / INFRA ${INITIAL_CHARACTER_NAMES.length}인은 기본 지급 · 보유 렌즈는 하위 프레임으로 표시`;
+
+  }
+
+}
+
+/* =========================================================
+   COLLECTION
+========================================================= */
+
+function setSort(mode){
+
+  sortMode=mode;
+
+  document
+    .querySelectorAll(
+      "[data-sort]"
+    )
+    .forEach(
+      b=>
+        b.classList.toggle(
+          "active",
+          b.dataset.sort===mode
+        )
+    );
+
+  renderCollection();
+
+}
+
+function renderCharacterCard(
+  c,
+  owned
+){
+
+  const lenses=
+    LENS_DB.filter(
+      l=>
+        l.parent===c.name
+        &&lensCollection.includes(l.id)
+    );
+
+  return`
+    <div class="charCard ${owned?"":"dimmed"}">
+
+      <div class="resultGrade ${getClass(c.rarity)}">
+        ${getGradeText(c.rarity)}
+      </div>
+
+      <div class="charName ${getClass(c.rarity)}">
+        ${c.name}
+      </div>
+
+      <div class="charGroup">
+        ${c.group}
+      </div>
+
+      ${
+        lenses.length
+          ?`
+            <div class="lensChildren">
+              ${
+                lenses
+                  .map(
+                    l=>`
+                      <div class="lensChild">
+                        ◇ ${l.name}
+                      </div>
+                    `
+                  )
+                  .join("")
+              }
+            </div>
+          `
+          :""
+      }
+
+    </div>
+  `;
+
+}
+
+function renderCollection(){
+
+  const area=
+    document.getElementById(
+      "collectionArea"
+    );
+
+  const ownedSet=
+    new Set(collection);
+
+  let list=
+    sortMode==="all"
+      ?[...DB]
+      :DB.filter(
+        c=>ownedSet.has(c.name)
+      );
+
+  if(sortMode==="name"){
+
+    list.sort(
+      (a,b)=>
+        a.name.localeCompare(
+          b.name,
+          "ko"
+        )
+    );
+
+  }else if(sortMode==="group"){
+
+    list.sort(
+      (a,b)=>
+        a.group.localeCompare(
+          b.group,
+          "ko"
+        )
+        ||
+        a.name.localeCompare(
+          b.name,
+          "ko"
+        )
+    );
+
+  }else{
+
+    list.sort(
+      (a,b)=>
+        b.rarity-a.rarity
+        ||
+        a.name.localeCompare(
+          b.name,
+          "ko"
+        )
+    );
+
+  }
+
+  let html="";
+  let group="";
+
+  for(const c of list){
+
+    if(
+      sortMode==="group"
+      &&c.group!==group
+    ){
+
+      group=c.group;
+
+      html+=`
+        <div class="groupHeader">
+          ${group}
+        </div>
+      `;
+
+    }
+
+    html+=
+      renderCharacterCard(
+        c,
+        ownedSet.has(c.name)
+      );
+
+  }
+
+  area.innerHTML=
+    html
+    ||'<div class="note">보유 인원 없음</div>';
+
+}
+
+/* =========================================================
+   LENSES
+========================================================= */
+
+function renderLensCollection(){
+
+  const area=
+    document.getElementById(
+      "lensCollectionArea"
+    );
+
+  let html="";
+
+  for(
+    const parent
+    of LENS_PARENT_NAMES
+  ){
+
+    const lenses=
+      LENS_DB.filter(
+        l=>l.parent===parent
+      );
+
+    const owned=
+      lenses.filter(
+        l=>
+          lensCollection.includes(
+            l.id
+          )
+      ).length;
+
+    html+=`
+      <div class="lensGroup">
+
+        <div class="lensGroupHead">
+
+          <span class="lensGroupName">
+            ${parent}
+          </span>
+
+          <span class="lensGroupCount">
+            ${owned}/${lenses.length}
+          </span>
+
+        </div>
+
+        <div class="lensSlots">
+
+          ${
+            lenses
+              .map(
+                (l,index)=>{
+
+                  const has=
+                    lensCollection.includes(
+                      l.id
+                    );
+
+                  return`
+                    <div class="lensSlot ${has?"":"missing"}">
+
+                      ${
+                        has
+                          ?"◇ "+l.name
+                          :"◇ UNDEVELOPED NEGATIVE"
+                      }
+
+                      <div class="slotParent">
+                        ${parent} / FRAME ${index+1}
+                      </div>
+
+                    </div>
+                  `;
+
+                }
+              )
+              .join("")
+          }
+
+        </div>
+
+      </div>
+    `;
+
+  }
+
+  area.innerHTML=
+    html
+    ||`
+      <div class="note">
+        등록된 섭동 렌즈가 없습니다.
+      </div>
+    `;
+
+  document.getElementById(
+    "lensProgress"
+  ).textContent=
+    `${lensCollection.length} / ${LENS_DB.length}`;
+
+}
+
+/* =========================================================
+   EXCHANGE
+========================================================= */
 
 function renderExchange(){
- const chars=DB.filter(c=>!collection.includes(c.name)&&(c.rarity===2||c.rarity===3));
- const lenses=LENS_DB.filter(l=>!lensCollection.includes(l.id));
- document.getElementById('exchangeCharCount').textContent=`${chars.length} AVAILABLE`;
- document.getElementById('exchangeLensCount').textContent=`${lenses.length} AVAILABLE`;
- document.getElementById('exchangeCharacters').innerHTML=chars.length?chars.map(c=>{
-  const cost=c.rarity===3?200:50;
-  return `<div class="exchangeRow"><div><div class="exchangeName ${getClass(c.rarity)}">${getGradeText(c.rarity)} · ${c.name}</div><div class="exchangeSub">${c.group}</div></div><button type="button" class="exchangeBtn" data-character="${c.name}" data-cost="${cost}" ${glow<cost?'disabled':''}>${cost}</button></div>`
- }).join(''):'<div class="note">모든 교환 대상 캐릭터를 보유 중입니다.</div>';
- document.getElementById('exchangeLenses').innerHTML=lenses.length?lenses.map(l=>`<div class="exchangeRow"><div><div class="exchangeName lens">◇ ${l.name}</div><div class="exchangeSub">${l.parent}</div></div><button type="button" class="exchangeBtn" data-lens="${l.id}" data-cost="200" ${glow<200?'disabled':''}>200</button></div>`).join(''):'<div class="note">모든 섭동 렌즈를 보유 중입니다.</div>';
+
+  const chars=
+    DB.filter(
+      c=>
+        !collection.includes(c.name)
+        &&(
+          c.rarity===2
+          ||c.rarity===3
+        )
+    );
+
+  const lenses=
+    LENS_DB.filter(
+      l=>
+        !lensCollection.includes(l.id)
+    );
+
+  document.getElementById(
+    "exchangeCharCount"
+  ).textContent=
+    `${chars.length} AVAILABLE`;
+
+  document.getElementById(
+    "exchangeLensCount"
+  ).textContent=
+    `${lenses.length} AVAILABLE`;
+
+  document.getElementById(
+    "exchangeCharacters"
+  ).innerHTML=
+
+    chars.length
+      ?chars
+        .map(c=>{
+
+          const cost=
+            c.rarity===3
+              ?200
+              :50;
+
+          return`
+            <div class="exchangeRow">
+
+              <div>
+
+                <div class="exchangeName ${getClass(c.rarity)}">
+                  ${getGradeText(c.rarity)} · ${c.name}
+                </div>
+
+                <div class="exchangeSub">
+                  ${c.group}
+                </div>
+
+              </div>
+
+              <button
+                type="button"
+                class="exchangeBtn"
+                data-character="${c.name}"
+                data-cost="${cost}"
+                ${glow<cost?"disabled":""}>
+
+                ${cost}
+
+              </button>
+
+            </div>
+          `;
+
+        })
+        .join("")
+
+      :`
+        <div class="note">
+          모든 교환 대상 캐릭터를 보유 중입니다.
+        </div>
+      `;
+
+  document.getElementById(
+    "exchangeLenses"
+  ).innerHTML=
+
+    lenses.length
+      ?lenses
+        .map(
+          l=>`
+            <div class="exchangeRow">
+
+              <div>
+
+                <div class="exchangeName lens">
+                  ◇ ${l.name}
+                </div>
+
+                <div class="exchangeSub">
+                  ${l.parent}
+                </div>
+
+              </div>
+
+              <button
+                type="button"
+                class="exchangeBtn"
+                data-lens="${l.id}"
+                data-cost="200"
+                ${glow<200?"disabled":""}>
+
+                200
+
+              </button>
+
+            </div>
+          `
+        )
+        .join("")
+
+      :`
+        <div class="note">
+          모든 섭동 렌즈를 보유 중입니다.
+        </div>
+      `;
+
 }
 
-function exchangeCharacter(name,cost){if(glow<cost)return;if(!confirm(`${name}을(를) 잔광 ${cost}으로 현상하시겠습니까?`))return;glow-=cost;if(!collection.includes(name))collection.push(name);saveData();updateCounters();renderExchange();renderCollection()}
-function exchangeLens(id,cost){const l=getLens(id);if(!l||glow<cost)return;if(!confirm(`${l.name}을(를) 잔광 ${cost}으로 현상하시겠습니까?`))return;glow-=cost;if(!lensCollection.includes(id))lensCollection.push(id);saveData();updateCounters();renderExchange();renderLensCollection();renderCollection()}
+function exchangeCharacter(
+  name,
+  cost
+){
 
-function renderLog(){const area=document.getElementById('logList');if(!history.length){area.innerHTML='<div class="note">노출 기록이 없습니다.</div>';return}area.innerHTML=history.map(rec=>`<div class="logCard"><div class="logMeta">${rec.date} / ${rec.count}회 / ${rec.bannerTitle||'기존 헤드헌팅'}</div>${rec.results.map(r=>r.type==='lens'?`<div class="logLine lens">◇ ${r.name}${r.isPickup?' · PICK UP':''}</div>`:`<div class="logLine ${getClass(r.rarity)}">${getGradeText(r.rarity)} · ${r.name}${r.isPickup?' · PICK UP':''}</div>`).join('')}</div>`).join('')}
+  if(glow<cost)
+    return;
 
-function resetData(){if(!confirm('모든 가챠 기록, 추가 캐릭터, 섭동 렌즈와 잔광을 초기화하시겠습니까?\nINFRA 기본 대원 9명은 유지됩니다.'))return;totalCount=0;glow=0;collection=[...INITIAL_CHARACTER_NAMES];lensCollection=[];history=[];STORE.setItem('totalCount','0');STORE.setItem('glow','0');STORE.setItem('collection',JSON.stringify(collection));STORE.setItem('lensCollection','[]');STORE.setItem('history','[]');document.getElementById('result').innerHTML='<div class="resultEmpty">필름이 초기화되었습니다.<br>새 노출을 시작하십시오.</div>';document.getElementById('resultCount').textContent='RESET';updateCounters();renderCollection();renderLensCollection();renderExchange();renderLog()}
+  if(
+    !confirm(
+      `${name}을(를) 잔광 ${cost}으로 현상하시겠습니까?`
+    )
+  )
+    return;
+
+  glow-=cost;
+
+  if(
+    !collection.includes(name)
+  ){
+    collection.push(name);
+  }
+
+  saveData();
+  updateCounters();
+  renderExchange();
+  renderCollection();
+
+}
+
+function exchangeLens(
+  id,
+  cost
+){
+
+  const l=
+    getLens(id);
+
+  if(
+    !l
+    ||glow<cost
+  )
+    return;
+
+  if(
+    !confirm(
+      `${l.name}을(를) 잔광 ${cost}으로 현상하시겠습니까?`
+    )
+  )
+    return;
+
+  glow-=cost;
+
+  if(
+    !lensCollection.includes(id)
+  ){
+    lensCollection.push(id);
+  }
+
+  saveData();
+  updateCounters();
+  renderExchange();
+  renderLensCollection();
+  renderCollection();
+
+}
+
+/* =========================================================
+   LOG
+========================================================= */
+
+function renderLog(){
+
+  const area=
+    document.getElementById(
+      "logList"
+    );
+
+  if(!history.length){
+
+    area.innerHTML=
+      `
+        <div class="note">
+          노출 기록이 없습니다.
+        </div>
+      `;
+
+    return;
+
+  }
+
+  area.innerHTML=
+    history
+      .map(
+        rec=>`
+          <div class="logCard">
+
+            <div class="logMeta">
+              ${rec.date}
+              /
+              ${rec.count}회
+              /
+              ${rec.bannerTitle||"기존 헤드헌팅"}
+            </div>
+
+            ${
+              rec.results
+                .map(
+                  r=>
+                    r.type==="lens"
+                      ?`
+                        <div class="logLine lens">
+                          ◇ ${r.name}${r.isPickup?" · PICK UP":""}
+                        </div>
+                      `
+                      :`
+                        <div class="logLine ${getClass(r.rarity)}">
+                          ${getGradeText(r.rarity)} · ${r.name}${r.isPickup?" · PICK UP":""}
+                        </div>
+                      `
+                )
+                .join("")
+            }
+
+          </div>
+        `
+      )
+      .join("");
+
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetData(){
+
+  if(
+    !confirm(
+      `모든 가챠 기록, 추가 캐릭터, 섭동 렌즈와 잔광을 초기화하시겠습니까?\nINFRA 기본 대원 ${INITIAL_CHARACTER_NAMES.length}명은 유지됩니다.`
+    )
+  )
+    return;
+
+  totalCount=0;
+  glow=0;
+
+  collection=[
+    ...INITIAL_CHARACTER_NAMES
+  ];
+
+  lensCollection=[];
+  history=[];
+
+  STORE.setItem(
+    "totalCount",
+    "0"
+  );
+
+  STORE.setItem(
+    "glow",
+    "0"
+  );
+
+  STORE.setItem(
+    "collection",
+    JSON.stringify(collection)
+  );
+
+  STORE.setItem(
+    "lensCollection",
+    "[]"
+  );
+
+  STORE.setItem(
+    "history",
+    "[]"
+  );
+
+  document.getElementById(
+    "result"
+  ).innerHTML=
+    `
+      <div class="resultEmpty">
+        필름이 초기화되었습니다.<br>
+        새 노출을 시작하십시오.
+      </div>
+    `;
+
+  document.getElementById(
+    "resultCount"
+  ).textContent=
+    "RESET";
+
+  updateCounters();
+  renderCollection();
+  renderLensCollection();
+  renderExchange();
+  renderLog();
+
+}
+
+/* =========================================================
+   EVENTS
+========================================================= */
 
 function bindControls(){
- document.querySelectorAll('.navBtn').forEach(btn=>btn.addEventListener('click',()=>showPage(btn.dataset.page)));
- document.getElementById('btn1').addEventListener('click',()=>pull(1));
- document.getElementById('btn10').addEventListener('click',()=>pull(10));
- document.querySelectorAll('[data-sort]').forEach(btn=>btn.addEventListener('click',()=>setSort(btn.dataset.sort)));
- const resetBtn=document.querySelector('.resetBtn');
- if(resetBtn)resetBtn.addEventListener('click',resetData);
- document.getElementById('bannerList').addEventListener('click',event=>{
-  const card=event.target.closest('[data-banner-id]');
-  if(card)selectBanner(card.dataset.bannerId);
- });
- document.getElementById('exchangeCharacters').addEventListener('click',event=>{
-  const btn=event.target.closest('button[data-character]');
-  if(btn&&!btn.disabled)exchangeCharacter(btn.dataset.character,Number(btn.dataset.cost));
- });
- document.getElementById('exchangeLenses').addEventListener('click',event=>{
-  const btn=event.target.closest('button[data-lens]');
-  if(btn&&!btn.disabled)exchangeLens(btn.dataset.lens,Number(btn.dataset.cost));
- });
+
+  document
+    .querySelectorAll(
+      ".navBtn"
+    )
+    .forEach(
+      btn=>
+        btn.addEventListener(
+          "click",
+          ()=>
+            showPage(
+              btn.dataset.page
+            )
+        )
+    );
+
+  document.getElementById(
+    "btn1"
+  ).addEventListener(
+    "click",
+    ()=>pull(1)
+  );
+
+  document.getElementById(
+    "btn10"
+  ).addEventListener(
+    "click",
+    ()=>pull(10)
+  );
+
+  document
+    .querySelectorAll(
+      "[data-sort]"
+    )
+    .forEach(
+      btn=>
+        btn.addEventListener(
+          "click",
+          ()=>
+            setSort(
+              btn.dataset.sort
+            )
+        )
+    );
+
+  const resetBtn=
+    document.querySelector(
+      ".resetBtn"
+    );
+
+  if(resetBtn){
+
+    resetBtn.addEventListener(
+      "click",
+      resetData
+    );
+
+  }
+
+  document.getElementById(
+    "bannerList"
+  ).addEventListener(
+    "click",
+    event=>{
+
+      const card=
+        event.target.closest(
+          "[data-banner-id]"
+        );
+
+      if(card){
+
+        selectBanner(
+          card.dataset.bannerId
+        );
+
+      }
+
+    }
+  );
+
+  document.getElementById(
+    "exchangeCharacters"
+  ).addEventListener(
+    "click",
+    event=>{
+
+      const btn=
+        event.target.closest(
+          "button[data-character]"
+        );
+
+      if(
+        btn
+        &&!btn.disabled
+      ){
+
+        exchangeCharacter(
+          btn.dataset.character,
+          Number(
+            btn.dataset.cost
+          )
+        );
+
+      }
+
+    }
+  );
+
+  document.getElementById(
+    "exchangeLenses"
+  ).addEventListener(
+    "click",
+    event=>{
+
+      const btn=
+        event.target.closest(
+          "button[data-lens]"
+        );
+
+      if(
+        btn
+        &&!btn.disabled
+      ){
+
+        exchangeLens(
+          btn.dataset.lens,
+          Number(
+            btn.dataset.cost
+          )
+        );
+
+      }
+
+    }
+  );
+
 }
 
+/* =========================================================
+   INIT
+========================================================= */
+
 bindControls();
-renderBannerList();updateBannerUI();updateCounters();renderCollection();renderLensCollection();saveData();
+
+renderBannerList();
+updateBannerUI();
+updateCounters();
+
+renderCollection();
+renderLensCollection();
+
+/* 오래된 저장 데이터 필터링 */
+saveData();
+
+/* 장식용 텔레메트리 */
+startDecorativeReadouts();
+
 </script>
+
 </body>
 </html>
